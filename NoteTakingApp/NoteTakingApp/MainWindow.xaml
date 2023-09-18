@@ -1,0 +1,20 @@
+﻿<Window x:Class="NoteTakingApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NoteTakingApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Welcome to collaborative &#x0a;        note taking app" Margin="237,10,232.333,329.667" Height="81" FontSize="25" FontWeight="Bold"/>
+        <Button x:Name="checkNotes" Click="DisplayNotes" Content="Check notes" Margin="319,96,319.333,258.667" FontSize="20"/>
+        <Button x:Name="addNotes" Click="AddNote" Content="Add note" Margin="319,198,319.333,156.667" FontSize="20"/>
+        <Button x:Name="quit" Click="Quit" Content="Quit" Margin="319,301,319.333,53.667" FontSize="20"/>
+    </Grid>
+
+</Window>
