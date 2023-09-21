@@ -43,6 +43,7 @@ namespace NoteTakingApp
             }
             noteNumber = Notes.Count + 1;
             Notes.Add($"Note #{noteNumber} by {author}: {content}");
+            File.WriteAllLines("SavedNotes.txt", Notes);
             Close(); 
         }
     }
