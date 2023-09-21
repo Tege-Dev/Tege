@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,12 @@ namespace NoteTakingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<string> Notes = new List<string>();
+        private List<string> Notes;
         public MainWindow()
         {
             InitializeComponent();
+            if (File.Exists("SavedNotes.txt")) Notes = File.ReadAllLines("SavedNotes.txt").ToList();
+            else Notes = new List<string>();
         }
         private void DisplayNotes(object sender, RoutedEventArgs e)
         {

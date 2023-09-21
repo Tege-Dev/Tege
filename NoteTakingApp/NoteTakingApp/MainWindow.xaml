@@ -6,15 +6,25 @@
         xmlns:local="clr-namespace:NoteTakingApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
 
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Welcome to collaborative &#x0a;        note taking app" Margin="237,10,232.333,329.667" Height="81" FontSize="25" FontWeight="Bold"/>
-        <Button x:Name="checkNotes" Click="DisplayNotes" Content="Check notes" Margin="319,96,319.333,258.667" FontSize="20"/>
-        <Button x:Name="addNotes" Click="AddNote" Content="Add note" Margin="319,198,319.333,156.667" FontSize="20"/>
-        <Button x:Name="quit" Click="Quit" Content="Quit" Margin="319,301,319.333,53.667" FontSize="20"/>
-    </Grid>
+		<TextBlock Text="Welcome to collaborative note taking app"
+                   FontSize="25" FontWeight="Bold"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Margin="10"/>
+
+		<StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center">
+			<Button x:Name="checkNotes" Content="Check notes" Click="DisplayNotes"
+                    FontSize="20" Margin="0,10" Height="40"/>
+			<Button x:Name="addNotes" Content="Add note" Click="AddNote"
+                    FontSize="20" Margin="0,10" Height="40"/>
+			<Button x:Name="quit" Content="Quit" Click="Quit"
+                    FontSize="20" Margin="0,10" Height="40" Width="157"/>
+		</StackPanel>
+	</Grid>
 
 </Window>
