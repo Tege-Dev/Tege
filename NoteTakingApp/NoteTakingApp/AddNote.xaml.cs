@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,8 +45,17 @@ namespace NoteTakingApp
                 MessageBox.Show("Please enter note content.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            string theme = themeTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(theme))
+            {
+                MessageBox.Show("Please enter note theme.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             noteNumber = Notes.Count + 1;
             Notes.Add($"Note #{noteNumber} by {author}: {content}");
+            File.WriteAllLines("SavedNotes.txt", Notes);
             Close(); 
         }
     }

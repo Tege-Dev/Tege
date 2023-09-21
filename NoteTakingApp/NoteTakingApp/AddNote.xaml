@@ -6,16 +6,14 @@
         xmlns:local="clr-namespace:NoteTakingApp"
         mc:Ignorable="d"
         Title="AddNote" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Label Content="ADD NOTE" FontSize="40" HorizontalAlignment="Center" Margin="299,26,290.333,338.667" Width="204"/>
-        <Label Content="Enter your name:" HorizontalAlignment="Center" Margin="179,102,505.333,299" Width="109"/>
-        <TextBox Name="authorTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="179,129,182.333,274"/>
-        <Label Content="Enter your note content:" HorizontalAlignment="Center" Margin="179,172,475.333,225.667" Width="139"/>
-        <TextBox x:Name="noteContentTextBox" TextWrapping="Wrap" Width="432" HorizontalAlignment="Center" Margin="179,200,182.333,74"/>
-        <Button Content="Create Note" Width="107" HorizontalAlignment="Center" Margin="336,365,350.333,17" Click="AddNewNote"/>
-    </Grid>
+	<StackPanel>
+		<Label Content="ADD NOTE" FontSize="40" HorizontalAlignment="Center" Margin="0,26,0,10"/>
+		<Label Content="Enter your name:" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+		<TextBox Name="authorTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+		<Label Content="Enter theme for your note:" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+		<TextBox Name="themeTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+		<Label Content="Enter your note content:" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+		<TextBox x:Name="noteContentTextBox" TextWrapping="Wrap" Width="432" HorizontalAlignment="Center" Margin="0,0,0,10" Height="100"/>
+		<Button Content="Create Note" Width="107" HorizontalAlignment="Center" Margin="0,10,0,0" Click="AddNewNote"/>
+	</StackPanel>
 </Window>

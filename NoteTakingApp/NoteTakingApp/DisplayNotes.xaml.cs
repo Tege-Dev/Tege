@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,25 +24,42 @@ namespace NoteTakingApp
         public DisplayNotes(List<string> notes)
         {
             InitializeComponent();
-
+            Notes = notes;
             foreach (string note in notes)
             {
                 notesListBox.Items.Add(note);
             }
         }
 
-        private void ViewNotes()
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-
-            if (Notes.Count > 0)
+            string keyword = searchTextBox.Text;
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                DisplayNotes DisplayNotes = new DisplayNotes(Notes);
-                DisplayNotes.ShowDialog();
+                List<string> matchingNotes = Notes.Where(note => note.Contains(keyword)).ToList();
+                notesListBox.Items.Clear();
+                foreach (string note in matchingNotes)
+                {
+                    notesListBox.Items.Add(note);
+                }
             }
             else
             {
-                MessageBox.Show("No notes available for this class.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                // If the search box is empty, show all notes
+                notesListBox.Items.Clear();
+                foreach (string note in Notes)
+                {
+                    notesListBox.Items.Add(note);
+                }
             }
+        }
+        private void RevertButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (string note in Notes)
+            {
+                notesListBox.Items.Add(note);
+            }
+            searchTextBox.Text = "";
         }
     }
 }
