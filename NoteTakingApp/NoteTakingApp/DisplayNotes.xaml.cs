@@ -55,6 +55,7 @@ namespace NoteTakingApp
         }
         private void RevertButton_Click(object sender, RoutedEventArgs e)
         {
+            notesListBox.Items.Clear();
             foreach (string note in Notes)
             {
                 notesListBox.Items.Add(note);
