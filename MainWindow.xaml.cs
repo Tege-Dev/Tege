@@ -22,6 +22,8 @@ namespace NoteTakingApp
         public MainWindow()
         {
             InitializeComponent();
+            if (File.Exists("SavedNotes.txt")) Notes = File.ReadAllLines("SavedNotes.txt").ToList();
+            else Notes = new List<string>();
         }
         private void DisplayNotes(object sender, RoutedEventArgs e)
         {
