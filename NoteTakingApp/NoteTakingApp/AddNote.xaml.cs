@@ -15,15 +15,12 @@ using System.Windows.Shapes;
 
 namespace NoteTakingApp
 {
-    /// <summary>
-    /// Interaction logic for AddNote.xaml
-    /// </summary>
     public partial class AddNote : Window
     {
-        private List<string> Notes;
-        private int noteNumber;
+        private List<Note> Notes;
         private MainWindow mainWindow;
-        public AddNote(List<string> notes, MainWindow mainwindow)
+
+        public AddNote(List<Note> notes, MainWindow mainwindow)
         {
             InitializeComponent();
             Notes = notes;
@@ -33,32 +30,22 @@ namespace NoteTakingApp
         private void AddNewNote(object sender, RoutedEventArgs e)
         {
             string author = authorTextBox.Text.Trim();
-
-            if (string.IsNullOrEmpty(author))
-            {
-                MessageBox.Show("Please enter your name.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
             string content = noteContentTextBox.Text.Trim();
-
-            if (string.IsNullOrEmpty(content))
-            {
-                MessageBox.Show("Please enter note content.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
             string theme = themeTextBox.Text.Trim();
 
-            if (string.IsNullOrEmpty(theme))
+            if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(content) || string.IsNullOrEmpty(theme))
             {
-                MessageBox.Show("Please enter note theme.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            noteNumber = Notes.Count + 1;
-            Notes.Add($"Note #{noteNumber} by {author}: {content}");
+
+            int noteNumber = Notes.Count + 1;
+            Note newNote = new Note(noteNumber, author, theme, content);
+            Notes.Add(newNote);
+
             mainWindow.NoteVisibilityToggle(Notes);
-            File.WriteAllLines("SavedNotes.txt", Notes);
+            mainWindow.SaveNotesToFile();
+
             Close();
         }
     }
