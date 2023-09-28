@@ -16,19 +16,17 @@ using System.Windows.Shapes;
 
 namespace NoteTakingApp
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private List<string> Notes;
+        private List<Note> Notes;
+
         public MainWindow()
         {
             InitializeComponent();
-            if (File.Exists("SavedNotes.txt")) Notes = File.ReadAllLines("SavedNotes.txt").ToList();
-            else Notes = new List<string>();
+            Notes = LoadNotesFromFile();
             NoteVisibilityToggle(Notes);
         }
+
         private void DisplayNotes(object sender, RoutedEventArgs e)
         {
             var newDisplayNotes = new DisplayNotes(Notes);
@@ -45,10 +43,50 @@ namespace NoteTakingApp
             var newAddNote = new AddNote(Notes, this);
             newAddNote.Show();
         }
-        public void NoteVisibilityToggle(List<string> Notes)
+
+        public void NoteVisibilityToggle(List<Note> Notes)
         {
             if (Notes.Count > 0) pageDisplay.Visibility = Visibility.Visible;
             else pageDisplay.Visibility = Visibility.Hidden;
+        }
+
+        private List<Note> LoadNotesFromFile()
+        {
+            List<Note> loadedNotes = new List<Note>();
+            string filePath = "SavedNotes.txt";
+
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+
+                for (int i = 0; i < lines.Length; i += 4)
+                {
+                    int number = int.Parse(lines[i]);
+                    string author = lines[i + 1];
+                    string theme = lines[i + 2];
+                    string content = lines[i + 3];
+
+                    Note note = new Note(number, author, theme, content);
+                    loadedNotes.Add(note);
+                }
+            }
+
+            return loadedNotes;
+        }
+
+        public void SaveNotesToFile()
+        {
+            List<string> linesToWrite = new List<string>();
+
+            foreach (Note note in Notes)
+            {
+                linesToWrite.Add(note.Number.ToString());
+                linesToWrite.Add(note.Author);
+                linesToWrite.Add(note.Theme);
+                linesToWrite.Add(note.Content);
+            }
+
+            File.WriteAllLines("SavedNotes.txt", linesToWrite);
         }
     }
 }
