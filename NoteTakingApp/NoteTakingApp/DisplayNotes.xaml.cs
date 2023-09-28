@@ -7,16 +7,16 @@ namespace NoteTakingApp
 {
     public partial class DisplayNotes : Window
     {
-        private List<string> Notes;
+        private List<Note> Notes;
 
-        public DisplayNotes(List<string> notes)
+        public DisplayNotes(List<Note> notes)
         {
             InitializeComponent();
 
             Notes = notes;
-            foreach (string note in Notes)
+            foreach (Note note in Notes)
             {
-                notesListBox.Items.Add(note);
+                notesListBox.Items.Add(note.Number.ToString() + ": " + note.Author + " - " + note.Theme + ". " + note.Content);
             }
         }
 
@@ -25,32 +25,33 @@ namespace NoteTakingApp
             string keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                List<string> matchingNotes = Notes.Where(note => note.Contains(keyword)).ToList();
+                List<Note> matchingNotes = Notes.Where(note => note.Theme.Contains(keyword)).ToList();
+
                 notesListBox.Items.Clear();
-                foreach (string note in matchingNotes)
+                foreach (Note note in matchingNotes)
                 {
-                    notesListBox.Items.Add(note);
+                    notesListBox.Items.Add(note.Number.ToString() + ": " + note.Author + " - " + note.Theme + ". " + note.Content);
                 }
             }
             else
             {
                 // If the search box is empty, show all notes
                 notesListBox.Items.Clear();
-                foreach (string note in Notes)
+                foreach (Note note in Notes)
                 {
-                    notesListBox.Items.Add(note);
+                    notesListBox.Items.Add(note.Number.ToString() + ": " + note.Author + " - " + note.Theme + ". " + note.Content);
                 }
             }
         }
+
         private void RevertButton_Click(object sender, RoutedEventArgs e)
         {
             notesListBox.Items.Clear();
-            foreach (string note in Notes)
+            foreach (Note note in Notes)
             {
-                notesListBox.Items.Add(note);
+                notesListBox.Items.Add(note.Number.ToString() + ": " + note.Author + " - " + note.Theme + ". " + note.Content);
             }
             searchTextBox.Text = "";
         }
     }
 }
-
