@@ -10,6 +10,9 @@
         <TextBox Name="searchTextBox" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200" />
         <Button Name="searchButton" Content="Search" Click="SearchButton_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,10,0,0"/>
         <Button Name="revertButton" Content="Revert" Click="RevertButton_Click" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="270,10,0,0"/>
+        <Button Content="Sort by Number" Click="SortButton_Click" Tag="Number" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="320,10,0,0"/>
+        <Button Content="Sort by Author" Click="SortButton_Click" Tag="Author" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="420,10,0,0"/>
+        <Button Content="Sort by Theme" Click="SortButton_Click" Tag="Theme" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="520,10,0,0"/>
         <ListBox Name="notesListBox" Margin="10,35,10,0" VerticalAlignment="Top" Height="375"/>
     </Grid>
 </Window>
