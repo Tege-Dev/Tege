@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,14 +59,15 @@ namespace NoteTakingApp
             {
                 string[] lines = File.ReadAllLines(filePath);
 
-                for (int i = 0; i < lines.Length; i += 4)
+                for (int i = 0; i < lines.Length; i += 5)
                 {
                     int number = int.Parse(lines[i]);
                     string author = lines[i + 1];
                     string theme = lines[i + 2];
                     string content = lines[i + 3];
+                    string tag = lines[i + 4];
 
-                    Note note = new Note(number, author, theme, content);
+                    Note note = new Note(number, author, theme, content, tag);
                     loadedNotes.Add(note);
                 }
             }
@@ -84,9 +85,11 @@ namespace NoteTakingApp
                 linesToWrite.Add(note.Author);
                 linesToWrite.Add(note.Theme);
                 linesToWrite.Add(note.Content);
+                linesToWrite.Add(note.Tag);
             }
 
             File.WriteAllLines("SavedNotes.txt", linesToWrite);
         }
+
     }
 }
