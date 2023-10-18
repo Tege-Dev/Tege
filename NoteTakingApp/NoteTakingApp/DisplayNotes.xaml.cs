@@ -27,13 +27,15 @@ namespace NoteTakingApp
             notesListBox.Items.Clear();
             foreach (Note note in notes)
             {
-                notesListBox.Items.Add(note.Number.ToString() + ": " + note.Author + " - " + note.Theme + ". " + note.Content);
+                string displayText = $"{note.Number}: {note.Author.CapitalizeFirstLetter()} - {note.Theme.CapitalizeFirstLetter()}. {note.Content.CapitalizeFirstLetter()} ({note.Tag})";
+                notesListBox.Items.Add(displayText);
             }
         }
 
+
         private void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            string keyword = searchTextBox.Text;
+            var keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 List<Note> matchingNotes = Notes.Where(note => note.Theme.Contains(keyword)).ToList();
@@ -53,8 +55,8 @@ namespace NoteTakingApp
 
         private void SortButton_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-            string columnName = button.Tag.ToString();
+            var button = (Button)sender;
+            var columnName = button.Tag.ToString();
 
             if (sortedColumn == columnName)
             {
