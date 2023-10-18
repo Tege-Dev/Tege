@@ -32,6 +32,7 @@ namespace NoteTakingApp
             string author = authorTextBox.Text.Trim();
             string content = noteContentTextBox.Text.Trim();
             string theme = themeTextBox.Text.Trim();
+            string tag = tagTextBox.Text.Trim();
 
             if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(content) || string.IsNullOrEmpty(theme))
             {
@@ -40,7 +41,7 @@ namespace NoteTakingApp
             }
 
             int noteNumber = Notes.Count + 1;
-            Note newNote = new Note(noteNumber, author, theme, content);
+            Note newNote = new Note(noteNumber, author, theme, content, tag);
             Notes.Add(newNote);
 
             mainWindow.NoteVisibilityToggle(Notes);
@@ -48,5 +49,6 @@ namespace NoteTakingApp
 
             Close();
         }
+
     }
 }
