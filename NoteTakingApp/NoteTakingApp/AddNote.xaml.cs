@@ -33,11 +33,11 @@ namespace NoteTakingApp
 
         private void AddNewNote(object sender, RoutedEventArgs e)
         {
-            string author = authorTextBox.Text.Trim();
-            string content = noteContentTextBox.Text.Trim();
-            string theme = themeTextBox.Text.Trim();
-            PrivacySetting privacy = (PrivacySetting)privacyComboBox.SelectedItem;
-            string tag = tagTextBox.Text.Trim();
+            var author = authorTextBox.Text.Trim();
+            var content = noteContentTextBox.Text.Trim();
+            var theme = themeTextBox.Text.Trim();
+            var privacy = (PrivacySetting)privacyComboBox.SelectedItem;
+            var tag = tagTextBox.Text.Trim();
 
             if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(content) || string.IsNullOrEmpty(theme))
             {
@@ -45,8 +45,8 @@ namespace NoteTakingApp
                 return;
             }
 
-            int noteNumber = Notes.Count + 1;
-            Note newNote = new Note(noteNumber, author, theme, content, privacy, tag);
+            var noteNumber = Notes.Count + 1;
+            var newNote = new Note(noteNumber, author, theme, content, privacy, tag);
             Notes.Add(newNote);
 
             mainWindow.NoteVisibilityToggle(Notes);

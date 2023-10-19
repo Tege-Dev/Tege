@@ -26,7 +26,7 @@ namespace NoteTakingApp
             notesListBox.Items.Clear();
             foreach (Note note in notes)
             {
-                string displayText = $"{note.Number} - Privacy: {note.Privacy} -  ({note.Tag}): {note.Author.CapitalizeFirstLetter()} {note.Theme.CapitalizeFirstLetter()}. {note.Content.CapitalizeFirstLetter()}";
+                var displayText = $"{note.Number} - Privacy: {note.Privacy} -  ({note.Tag}): {note.Author.CapitalizeFirstLetter()} {note.Theme.CapitalizeFirstLetter()}. {note.Content.CapitalizeFirstLetter()}";
                 notesListBox.Items.Add(displayText);
             }
         }
@@ -37,7 +37,7 @@ namespace NoteTakingApp
             var keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                List<Note> matchingNotes = Notes.Where(note => note.Theme.Contains(keyword)).ToList();
+                var matchingNotes = Notes.Where(note => note.Theme.Contains(keyword)).ToList();
                 DisplayNotesInListBox(matchingNotes);
             }
             else

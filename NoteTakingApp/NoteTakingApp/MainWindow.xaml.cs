@@ -52,8 +52,8 @@ namespace NoteTakingApp
 
         private List<Note> LoadNotesFromFile()
         {
-            List<Note> loadedNotes = new List<Note>();
-            string filePath = "SavedNotes.txt";
+            var loadedNotes = new List<Note>();
+            var filePath = "SavedNotes.txt";
 
             if (File.Exists(filePath))
             {
@@ -61,12 +61,12 @@ namespace NoteTakingApp
 
                 for (int i = 0; i < lines.Length; i += 6) // Changed from 5 to 6 to account for Privacy setting
                 {
-                    int number = int.Parse(lines[i]);
-                    string author = lines[i + 1];
-                    string theme = lines[i + 2];
-                    string content = lines[i + 3];
-                    PrivacySetting privacy = (PrivacySetting)Enum.Parse(typeof(PrivacySetting), lines[i + 4]); // Added line for privacy
-                    string tag = lines[i + 5];
+                    var number = int.Parse(lines[i]);
+                    var author = lines[i + 1];
+                    var theme = lines[i + 2];
+                    var content = lines[i + 3];
+                    var privacy = (PrivacySetting)Enum.Parse(typeof(PrivacySetting), lines[i + 4]); // Added line for privacy
+                    var tag = lines[i + 5];
 
                     Note note = new Note(number, author, theme, content, privacy, tag);
                     loadedNotes.Add(note);
@@ -79,7 +79,7 @@ namespace NoteTakingApp
 
         public void SaveNotesToFile()
         {
-            List<string> linesToWrite = new List<string>();
+            var linesToWrite = new List<string>();
 
             foreach (Note note in Notes)
             {
