@@ -59,21 +59,23 @@ namespace NoteTakingApp
             {
                 string[] lines = File.ReadAllLines(filePath);
 
-                for (int i = 0; i < lines.Length; i += 5)
+                for (int i = 0; i < lines.Length; i += 6) // Changed from 5 to 6 to account for Privacy setting
                 {
                     int number = int.Parse(lines[i]);
                     string author = lines[i + 1];
                     string theme = lines[i + 2];
                     string content = lines[i + 3];
-                    string tag = lines[i + 4];
+                    PrivacySetting privacy = (PrivacySetting)Enum.Parse(typeof(PrivacySetting), lines[i + 4]); // Added line for privacy
+                    string tag = lines[i + 5];
 
-                    Note note = new Note(number, author, theme, content, tag);
+                    Note note = new Note(number, author, theme, content, privacy, tag);
                     loadedNotes.Add(note);
                 }
             }
 
             return loadedNotes;
         }
+
 
         public void SaveNotesToFile()
         {
@@ -85,11 +87,13 @@ namespace NoteTakingApp
                 linesToWrite.Add(note.Author);
                 linesToWrite.Add(note.Theme);
                 linesToWrite.Add(note.Content);
+                linesToWrite.Add(note.Privacy.ToString());
                 linesToWrite.Add(note.Tag);
             }
 
             File.WriteAllLines("SavedNotes.txt", linesToWrite);
         }
+
 
     }
 }

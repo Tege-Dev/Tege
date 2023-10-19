@@ -25,6 +25,10 @@ namespace NoteTakingApp
             InitializeComponent();
             Notes = notes;
             mainWindow = mainwindow;
+
+            privacyComboBox.Items.Clear();
+            privacyComboBox.ItemsSource = Enum.GetValues(typeof(PrivacySetting));
+            privacyComboBox.SelectedItem = PrivacySetting.Private;
         }
 
         private void AddNewNote(object sender, RoutedEventArgs e)
@@ -32,6 +36,7 @@ namespace NoteTakingApp
             string author = authorTextBox.Text.Trim();
             string content = noteContentTextBox.Text.Trim();
             string theme = themeTextBox.Text.Trim();
+            PrivacySetting privacy = (PrivacySetting)privacyComboBox.SelectedItem;
             string tag = tagTextBox.Text.Trim();
 
             if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(content) || string.IsNullOrEmpty(theme))
@@ -41,7 +46,7 @@ namespace NoteTakingApp
             }
 
             int noteNumber = Notes.Count + 1;
-            Note newNote = new Note(noteNumber, author, theme, content, tag);
+            Note newNote = new Note(noteNumber, author, theme, content, privacy, tag);
             Notes.Add(newNote);
 
             mainWindow.NoteVisibilityToggle(Notes);
@@ -49,6 +54,7 @@ namespace NoteTakingApp
 
             Close();
         }
-
     }
+
+
 }

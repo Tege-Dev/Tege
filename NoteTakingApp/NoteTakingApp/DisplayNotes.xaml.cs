@@ -21,13 +21,12 @@ namespace NoteTakingApp
             ascendingOrder = true;
             DisplayNotesInListBox(Notes);
         }
-
         private void DisplayNotesInListBox(List<Note> notes)
         {
             notesListBox.Items.Clear();
             foreach (Note note in notes)
             {
-                string displayText = $"{note.Number}: {note.Author.CapitalizeFirstLetter()} - {note.Theme.CapitalizeFirstLetter()}. {note.Content.CapitalizeFirstLetter()} ({note.Tag})";
+                string displayText = $"{note.Number} - Privacy: {note.Privacy} -  ({note.Tag}): {note.Author.CapitalizeFirstLetter()} {note.Theme.CapitalizeFirstLetter()}. {note.Content.CapitalizeFirstLetter()}";
                 notesListBox.Items.Add(displayText);
             }
         }

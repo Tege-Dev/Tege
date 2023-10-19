@@ -6,20 +6,28 @@ using System.Threading.Tasks;
 
 namespace NoteTakingApp
 {
+    public enum PrivacySetting
+    {
+        Public,
+        Private
+    }
+
     public class Note : IComparable<Note>
     {
         public int Number { get; set; }
         public string Author { get; set; }
         public string Theme { get; set; }
         public string Content { get; set; }
-        public string Tag { get; set; } 
+        public string Tag { get; set; }
+        public PrivacySetting Privacy { get; set; }
 
-        public Note(int number, string author, string theme, string content, string tag = null)
+        public Note(int number, string author, string theme, string content, PrivacySetting privacy = PrivacySetting.Private, string tag = null)
         {
             Number = number;
             Author = author;
             Theme = theme;
             Content = content;
+            Privacy = privacy;
             Tag = tag;
         }
         public object NumberToObject()
