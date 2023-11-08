@@ -8,8 +8,8 @@ namespace NoteTakingApp
 {
     public enum PrivacySetting
     {
-        Public,
-        Private
+        Public = 0,
+        Private = 1
     }
 
     public class Note : IComparable<Note>
@@ -46,4 +46,5 @@ namespace NoteTakingApp
             return this.Number.CompareTo(other.Number);
         }
     }
+
 }
