@@ -54,7 +54,7 @@ namespace NoteTakingApp
                 var noteNumber = Notes.Count + 1;
                 var newNote = new Note(noteNumber, author, theme, content, privacy, tag);
                 Notes.Add(newNote);
-                //AddNewNoteToDatabase(newNote);
+                //mainWindow.SaveNotesToDatabase();
                 mainWindow.NoteVisibilityToggle(Notes);
                 mainWindow.SaveNotesToFile();
 
@@ -63,24 +63,6 @@ namespace NoteTakingApp
             }
             else MessageBox.Show("Invalid input. Please use only letters and spaces.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        public void AddNewNoteToDatabase(Note newNote)
-        {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["NoteDBConnectionString"].ConnectionString))
-            {
-                connection.Open();
-                string query = "INSERT INTO Notes (Number, Author, Theme, Content, Tag, PrivacySettings) VALUES (@Number, @Author, @Theme, @Content, @Tag, @Privacy)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Number", newNote.Number);
-                command.Parameters.AddWithValue("@Author", newNote.Author);
-                command.Parameters.AddWithValue("@Theme", newNote.Theme);
-                command.Parameters.AddWithValue("@Content", newNote.Content);
-                command.Parameters.AddWithValue("@Privacy", (int)newNote.Privacy);
-                command.Parameters.AddWithValue("@Tag", newNote.Tag);
-
-                command.ExecuteNonQuery();
-            }
-        }
-
     }
 
 
