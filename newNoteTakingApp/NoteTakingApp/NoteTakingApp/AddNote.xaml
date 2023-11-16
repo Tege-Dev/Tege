@@ -1,0 +1,24 @@
+﻿<Window x:Class="NoteTakingApp.AddNote"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NoteTakingApp"
+        mc:Ignorable="d"
+        Title="AddNote" Height="700" Width="600"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        <Label Content="ADD NOTE" FontSize="40" HorizontalAlignment="Center" Margin="0,26,0,10"/>
+        <Label Content="Enter your name:" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+        <TextBox x:FieldModifier="public" Name="authorTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        <Label Content="Enter theme for your note:" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+        <TextBox x:FieldModifier="public" Name="themeTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        <Label Content="Enter your note content:" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+        <TextBox x:FieldModifier="public" Name="noteContentTextBox" TextWrapping="Wrap" Width="432" HorizontalAlignment="Center" Margin="0,0,0,10" Height="100"/>
+        <Label Content="Enter tag for your note(not required):" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+        <TextBox x:FieldModifier="public" Name="tagTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        <Label Content="Select Privacy Setting (Default: Private):" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+        <ComboBox x:FieldModifier="public" Name="privacyComboBox" Width="200" HorizontalAlignment="Center" Margin="0,0,0,10"></ComboBox>
+        <Button Content="Create Note" Width="107" HorizontalAlignment="Center" Margin="0,10,0,0" Click="AddNewNote"/>
+    </StackPanel>
+</Window>
