@@ -12,7 +12,7 @@ namespace Tests
             var note1 = new Note(1, "AuthorOne", "Theme1", "Content1");
             var note2 = new Note(2, "AuthorTwo", "Theme2", "Content2");
             int result = note1.CompareTo(note2);
-            Assert.IsTrue(result == -1);
+            Assert.IsTrue(result == -1); // konkretu; assert.isequal?
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace Tests
             var note1 = new Note(2, "AuthorOne", "Theme1", "Content1");
             var note2 = new Note(1, "AuthorTwo", "Theme2", "Content2");
             int result = note1.CompareTo(note2);
-            Assert.IsTrue(result== 1);
+            Assert.IsTrue(result == 1);
         }
     }
 }
