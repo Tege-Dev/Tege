@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,13 +11,13 @@ namespace NoteTakingApp
 
     public partial class DisplayNotes : Window
     {
-        public List<Note> Notes;
+        public ObservableCollection<Note> Notes;
         private string sortedColumn;
         private bool ascendingOrder;
         private NoteComparison sortFunction;
         private MainWindow mainWindow;
 
-        public DisplayNotes(List<Note> notes, MainWindow mainwindow)
+        public DisplayNotes(ObservableCollection<Note> notes, MainWindow mainwindow)
         {
             InitializeComponent();
 
@@ -26,7 +27,7 @@ namespace NoteTakingApp
             ascendingOrder = true;
             DisplayNotesInListBox(Notes);
         }
-        private void DisplayNotesInListBox(List<Note> notes)
+        private void DisplayNotesInListBox(ObservableCollection<Note> notes)
         {
             notesListBox.Items.Clear();
             foreach (Note note in notes)
@@ -42,7 +43,7 @@ namespace NoteTakingApp
             var keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                var matchingNotes = Notes.Where(note => note.Theme.Contains(keyword)).ToList();
+                var matchingNotes = new ObservableCollection<Note>(Notes.Where(note => note.Theme.Contains(keyword)).ToList());
                 DisplayNotesInListBox(matchingNotes);
             }
             else
@@ -85,10 +86,20 @@ namespace NoteTakingApp
                     break;
             }
 
-            Notes.Sort((note1, note2) => ascendingOrder ? sortFunction(note1, note2) : sortFunction(note2, note1));
+            List<Note> sortedList = ascendingOrder
+                ? Notes.OrderBy(n => sortFunction(n, null)).ToList()
+                : Notes.OrderByDescending(n => sortFunction(n, null)).ToList();
+
+            Notes.Clear();
+
+            foreach (var note in sortedList)
+            {
+                Notes.Add(note);
+            }
 
             DisplayNotesInListBox(Notes);
         }
+
 
         private int CompareByNumber(Note note1, Note note2)
         {

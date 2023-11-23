@@ -16,21 +16,23 @@ using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace NoteTakingApp
 {
     public partial class MainWindow : Window
     {
         private NoteDbContext dbContext;
-        public List<Note> Notes;
+        public ObservableCollection<Note> Notes { get; set; }
+
 
         public MainWindow()
         {
             InitializeComponent();
             DependencyInjector injector = new DependencyInjector();
             dbContext = injector.GetNoteDbContext();
-            Notes = LoadNotesFromDatabase();
-            NoteVisibilityToggle(Notes);
+            Notes = new ObservableCollection<Note>(LoadNotesFromDatabase());
+            DataContext = this;
         }
 
         public void DisplayNotes(object sender, RoutedEventArgs e)
@@ -41,10 +43,9 @@ namespace NoteTakingApp
         private void ClearNotes(object sender, RoutedEventArgs e)
         {
             Notes.Clear();
-            NoteVisibilityToggle(Notes);
             ClearDatabaseTable();
         }
-        private void ClearDatabaseTable()
+        public void ClearDatabaseTable()
         {
             dbContext.Database.ExecuteSqlRaw("DELETE FROM Notes");
         }
@@ -55,15 +56,9 @@ namespace NoteTakingApp
             newAddNote.Show();
         }
 
-        public void NoteVisibilityToggle(List<Note> Notes)
+        public ObservableCollection<Note> LoadNotesFromFile()
         {
-            if (Notes.Count > 0) pageDisplay.Visibility = Visibility.Visible;
-            else pageDisplay.Visibility = Visibility.Hidden;
-        }
-
-        public List<Note> LoadNotesFromFile()
-        {
-            var loadedNotes = new List<Note>();
+            var loadedNotes = new ObservableCollection<Note>();
             var filePath = "SavedNotes.txt";
 
             if (File.Exists(filePath))
@@ -105,15 +100,31 @@ namespace NoteTakingApp
             File.WriteAllLines("SavedNotes.txt", linesToWrite);
         }
 
-        public List<Note> LoadNotesFromDatabase()
+        public ObservableCollection<Note> LoadNotesFromDatabase()
         {
-            return dbContext.Notes.ToList();
+            return new ObservableCollection<Note>(dbContext.Notes.ToList());
         }
 
         public void SaveNotesToDatabase()
         {
-            dbContext.Notes.AddRange(Notes);
+            dbContext.Database.ExecuteSqlRaw("DELETE FROM Notes");
+            foreach (var note in Notes)
+            {
+                dbContext.Notes.Add(note);
+            }
             dbContext.SaveChanges();
+        }
+
+        private void NotesCardClick(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            if (button.DataContext is Note selectedNote)
+            {
+                var noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
+
+                var noteWindow = new NoteWindow(noteDetails);
+                noteWindow.Show();
+            }
         }
     }
 }

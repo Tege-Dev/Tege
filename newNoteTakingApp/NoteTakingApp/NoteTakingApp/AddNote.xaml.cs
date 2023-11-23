@@ -16,16 +16,17 @@ using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace NoteTakingApp
 {
     public partial class AddNote : Window
     {
-        private List<Note> Notes;
+        private ObservableCollection<Note> Notes;
         private MainWindow mainWindow;
-        private NoteDbContext dbContext;
+        public NoteDbContext dbContext;
 
-        public AddNote(List<Note> notes, MainWindow mainwindow)
+        public AddNote(ObservableCollection<Note> notes, MainWindow mainwindow)
         {
             InitializeComponent();
             Notes = notes;
@@ -58,7 +59,6 @@ namespace NoteTakingApp
                 var noteNumber = Notes.Count + 1;
                 var newNote = new Note(noteNumber, author, theme, content, privacy, tag);
                 Notes.Add(newNote);
-                mainWindow.NoteVisibilityToggle(Notes);
                 mainWindow.SaveNotesToDatabase();
                 //mainWindow.SaveNotesToFile();
 
