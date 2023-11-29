@@ -15,6 +15,10 @@
         <TextBox Name="themeTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,10"/>
         <Label Content="Enter your note content:" HorizontalAlignment="Center" Margin="0,10,0,5"/>
         <TextBox x:Name="noteContentTextBox" TextWrapping="Wrap" Width="432" HorizontalAlignment="Center" Margin="0,0,0,10" Height="100"/>
+        <Label Content="Enter tag for your note(not required):" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+        <TextBox Name="tagTextBox" Width="432" Height="25" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        <Label Content="Select Privacy Setting (Default: Private):" HorizontalAlignment="Center" Margin="0,10,0,5"/>
+        <ComboBox Name="privacyComboBox" Width="200" HorizontalAlignment="Center" Margin="0,0,0,10"></ComboBox>
         <Button Content="Create Note" Width="107" HorizontalAlignment="Center" Margin="0,10,0,0" Click="AddNewNote"/>
     </StackPanel>
 </Window>
