@@ -12,5 +12,7 @@
 
         <!-- Contents with a normal shift from the left -->
         <TextBlock Name="noteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap" />
+        
+        <Button Content="Edit" Click="EditNote_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
     </Grid>
 </Window>
