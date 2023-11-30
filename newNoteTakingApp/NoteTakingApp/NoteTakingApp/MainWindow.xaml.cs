@@ -120,9 +120,7 @@ namespace NoteTakingApp
             var button = (Button)sender;
             if (button.DataContext is Note selectedNote)
             {
-                var noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
-
-                var noteWindow = new NoteWindow(noteDetails);
+                var noteWindow = new NoteWindow(selectedNote);
                 noteWindow.Show();
             }
         }

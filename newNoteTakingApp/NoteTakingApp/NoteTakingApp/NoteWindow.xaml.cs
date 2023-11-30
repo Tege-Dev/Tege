@@ -16,10 +16,11 @@ namespace NoteTakingApp
 {
     public partial class NoteWindow : Window
     {
-        public NoteWindow(string noteDetails)
+        public NoteWindow(Note note)
         {
             InitializeComponent();
-            noteDetailsText.Text = noteDetails;
+            noteThemeText.Text = note.Theme;
+            noteDetailsText.Text = note.Content;
         }
     }
 }
