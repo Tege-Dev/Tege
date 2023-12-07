@@ -29,10 +29,9 @@ namespace NoteTakingApp
             var mainWindow = new MainWindow();
             var result = loginWindow.ShowDialog();
 
-
             if (result == true)
             {
-                string username = loginWindow.Username;
+                string username = LoginWindow.Username;
                 bool rememberMe = loginWindow.RememberMe;
                 // TODO: panaudoti username ir rememberMe
             }

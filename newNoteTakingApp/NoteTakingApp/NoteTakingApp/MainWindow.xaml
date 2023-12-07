@@ -43,24 +43,24 @@
                    FontSize="25" FontWeight="Bold"
                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,20" Foreground="White"/>
 
-        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1" Margin="20,0,20,0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="20,0,20,0">
             <ItemsControl
                 Grid.Row="1"
                 ItemsSource="{Binding Notes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" Margin="10">
-                            <Button Height="160" Width="110" Cursor="Hand" Click="NotesCardClick" Background="{StaticResource SecondaryBrush}">
-                                <!-- Add button content/image here -->
+                            <Button Height="160" Width="110" Cursor="Hand" Click="NotesCardClick">
+                                <Label Content="{Binding Content}" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontWeight="Bold" Foreground="Black"/>
                             </Button>
                             <Label Content="{Binding Theme}" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
-                            <Label Content="{Binding Author}" FontStyle="Italic" FontSize="11" Foreground="LightGray"/>
+                            <Label Content="{Binding Author}" FontStyle="Italic" FontSize="11" Foreground="White"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel Margin="0 20 0 100" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                        <WrapPanel Margin="0 20 0 10" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
@@ -72,8 +72,8 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,1,0,0">
-            <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="44" Width="46"  Style="{StaticResource CircularButton}" Background="{StaticResource SecondaryBrush}" >
-                <Image Source="Assets/white_add.png" Stretch="UniformToFill" Height="27" Width="29"/>
+            <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="46" Width="46"  Style="{StaticResource CircularButton}" Background="{StaticResource SecondaryBrush}" >
+                <Image Source="\Assets\white_add.png" Stretch="Uniform" Height="30" Width="33"/>
             </Button>
             <Label  Content="Add a New Note" FontWeight="Bold" Foreground="White"/>
         </StackPanel>
