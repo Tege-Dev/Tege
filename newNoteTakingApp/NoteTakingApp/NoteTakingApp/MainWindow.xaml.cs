@@ -63,13 +63,25 @@ namespace NoteTakingApp
 
         public void SaveNotesToDatabase()
         {
-            dbContext.Database.ExecuteSqlRaw("DELETE FROM Notes");
+
             foreach (var note in Notes)
             {
-                dbContext.Notes.Add(note);
+                // If the note with the same ID exists in the database, update it
+                var existingNote = dbContext.Notes.Find(note.Number);
+                if (existingNote != null)
+                {
+                    dbContext.Entry(existingNote).CurrentValues.SetValues(note);
+                }
+                else
+                {
+                    // If the note doesn't exist in the database, add it
+                    dbContext.Notes.Add(note);
+                }
             }
+
             dbContext.SaveChanges();
         }
+
 
         private void NotesCardClick(object sender, RoutedEventArgs e)
         {
