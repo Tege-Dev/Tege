@@ -28,7 +28,16 @@ namespace NoteTakingApp
         {
             var editNoteWindow = new EditNoteWindow(note);
             editNoteWindow.Show();
+            Close();
         }
+
+        private void BackToMainWidnow_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = new MainWindow();
+            mainWindow.OpenMainWindow();
+            Close();
+        }
+
 
     }
 }

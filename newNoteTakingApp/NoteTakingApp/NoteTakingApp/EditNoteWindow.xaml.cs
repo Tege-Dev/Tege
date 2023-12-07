@@ -26,6 +26,8 @@ namespace NoteTakingApp
             MainWindow main = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             main.SaveNotesToDatabase();
 
+            var noteWindow = new NoteWindow(note);
+            noteWindow.Show();
             // Close the window
             Close();
         }
