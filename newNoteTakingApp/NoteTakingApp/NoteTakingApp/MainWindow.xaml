@@ -11,8 +11,8 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <Color x:Key="PrimaryColor">#3498db</Color>
-            <Color x:Key="SecondaryColor">#0074D9</Color>
+            <Color x:Key="PrimaryColor">#048c7e</Color>
+            <Color x:Key="SecondaryColor">#043631</Color>
 
             <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
             <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
@@ -67,8 +67,8 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10">
-            <Button Content="Erase Notes" Click="ClearNotes" Margin="10,0,10,0" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
-            <Button Content="Temp Check Notes" Click="DisplayNotes" Margin="10,0,10,0" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
+            <Button Content="Erase Notes" Click="ClearNotes" Margin="5,0,10,0" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
+            <Button Content="Temp Check Notes" Click="DisplayNotes" Margin="5,0,10,0" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,1,0,0">
