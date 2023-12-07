@@ -18,7 +18,7 @@ namespace NoteTakingApp
         public partial class LoginWindow : Window
         {
             public static string Username { get; private set; } = null!;
-            public bool RememberMe { get; private set; }
+            public static bool RememberMe { get; private set; }
 
             public LoginWindow()
             {
@@ -43,5 +43,5 @@ namespace NoteTakingApp
 
         }
     }
-    }
+}
     
