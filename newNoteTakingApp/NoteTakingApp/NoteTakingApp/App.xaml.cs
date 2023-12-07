@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -19,6 +20,28 @@ namespace NoteTakingApp
             //var mainWindow = new MainWindow(dbContext);
             //mainWindow.Show();
         }
-    }
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            var loginWindow = new LoginWindow();
+            var mainWindow = new MainWindow();
+            var result = loginWindow.ShowDialog();
+
+
+            if (result == true)
+            {
+                string username = loginWindow.Username;
+                bool rememberMe = loginWindow.RememberMe;
+                // TODO: panaudoti username ir rememberMe
+            }
+            else
+            {
+                // The user closed the window or clicked Cancel
+                Shutdown();
+            }
+        }
+    }
 }
+

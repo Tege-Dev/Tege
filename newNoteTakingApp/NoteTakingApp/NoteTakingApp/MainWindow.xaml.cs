@@ -22,9 +22,9 @@ namespace NoteTakingApp
 {
     public partial class MainWindow : Window
     {
+
         private NoteDbContext dbContext;
         public ObservableCollection<Note> Notes { get; set; }
-
 
         public MainWindow()
         {
@@ -54,50 +54,6 @@ namespace NoteTakingApp
         {
             var newAddNote = new AddNote(Notes, this);
             newAddNote.Show();
-        }
-
-        public ObservableCollection<Note> LoadNotesFromFile()
-        {
-            var loadedNotes = new ObservableCollection<Note>();
-            var filePath = "SavedNotes.txt";
-
-            if (File.Exists(filePath))
-            {
-                string[] lines = File.ReadAllLines(filePath);
-
-                for (int i = 0; i < lines.Length; i += 6)
-                {
-                    var number = int.Parse(lines[i]);
-                    var author = lines[i + 1];
-                    var theme = lines[i + 2];
-                    var content = lines[i + 3];
-                    var privacy = (PrivacySetting)Enum.Parse(typeof(PrivacySetting), lines[i + 4]);
-                    var tag = lines[i + 5];
-
-                    Note note = new Note(number, author, theme, content, privacy, tag);
-                    loadedNotes.Add(note);
-                }
-            }
-
-            return loadedNotes;
-        }
-
-
-        public void SaveNotesToFile()
-        {
-            var linesToWrite = new List<string>();
-
-            foreach (Note note in Notes)
-            {
-                linesToWrite.Add(note.Number.ToString());
-                linesToWrite.Add(note.Author);
-                linesToWrite.Add(note.Theme);
-                linesToWrite.Add(note.Content);
-                linesToWrite.Add(note.Privacy.ToString());
-                linesToWrite.Add(note.Tag);
-            }
-
-            File.WriteAllLines("SavedNotes.txt", linesToWrite);
         }
 
         public ObservableCollection<Note> LoadNotesFromDatabase()

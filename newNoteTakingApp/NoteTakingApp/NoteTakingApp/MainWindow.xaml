@@ -5,12 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NoteTakingApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800"
+        Title="Collaborative Notes" Height="500" Width="800"
         MinHeight="482"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#3498db</Color>
+            <Color x:Key="SecondaryColor">#0074D9</Color>
+
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+            <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+
             <Style x:Key="CircularButton" TargetType="Button">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -22,63 +28,54 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-
             </Style>
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid>
+    <Grid Background="{StaticResource PrimaryBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="106.04"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Welcome to collaborative note taking app"
+        <TextBlock Text="Welcome to the Collaborative Note-Taking App"
                    FontSize="25" FontWeight="Bold"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                   Margin="10">
-        </TextBlock>
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,20" Foreground="White"/>
 
-        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row = "1" Margin="20 20" VerticalAlignment="Center" >
+        <ScrollViewer VerticalScrollBarVisibility="Visible" Grid.Row="1" Margin="20,0,20,0">
             <ItemsControl
-                Grid.Row = "1"
-                ItemsSource="{Binding Notes}"
-                VerticalAlignment="Center">
+                Grid.Row="1"
+                ItemsSource="{Binding Notes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                    
-                        <StackPanel Orientation="Vertical">
-                            <Button Height="160" Width="110" Margin="20 0 10 0" Cursor="Hand" Click="NotesCardClick"/>
-                            <Label Content="{Binding Theme}"/>
-                            <Label Content="{Binding Author}" FontStyle="Italic" FontSize="11" Foreground="Gray"/>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <Button Height="160" Width="110" Cursor="Hand" Click="NotesCardClick" Background="{StaticResource SecondaryBrush}">
+                                <!-- Add button content/image here -->
+                            </Button>
+                            <Label Content="{Binding Theme}" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+                            <Label Content="{Binding Author}" FontStyle="Italic" FontSize="11" Foreground="LightGray"/>
                         </StackPanel>
-         
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel
-                            Margin="0 20 0 100"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Bottom">
-                        </WrapPanel>
+                        <WrapPanel Margin="0 20 0 100" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        
-        <StackPanel  Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10">
-            <Button Content="Erase notes" Click="ClearNotes" Margin="10,0,10,0"/>
-            <Button Content="Temp Check notes" Click="DisplayNotes" Margin="10,0,10,0"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10">
+            <Button Content="Erase Notes" Click="ClearNotes" Margin="10,0,10,0" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
+            <Button Content="Temp Check Notes" Click="DisplayNotes" Margin="10,0,10,0" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
         </StackPanel>
-        
-        <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,40">
-            <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="44" Width="46"  Style="{StaticResource CircularButton}" Background="#C7C9C8" >
+
+        <StackPanel Grid.Row="2" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,1,0,0">
+            <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="44" Width="46"  Style="{StaticResource CircularButton}" Background="{StaticResource SecondaryBrush}" >
                 <Image Source="Assets/white_add.png" Stretch="UniformToFill" Height="27" Width="29"/>
             </Button>
-            <Label  Content ="..add a new note" FontWeight="Bold" Foreground="SlateGray"/>
+            <Label  Content="Add a New Note" FontWeight="Bold" Foreground="White"/>
         </StackPanel>
     </Grid>
-
 </Window>

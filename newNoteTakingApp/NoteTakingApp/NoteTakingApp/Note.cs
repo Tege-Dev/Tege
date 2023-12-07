@@ -29,9 +29,8 @@ namespace NoteTakingApp
 
         public PrivacySetting Privacy { get; set; }
 
-        public Note(int number, string author, string theme, string content, PrivacySetting privacy = PrivacySetting.Private, string tag = null)
+        public Note(int number, string author, string theme, string content, PrivacySetting privacy = PrivacySetting.Private, string tag = null!)
         {
-            Number = number;
             Author = author;
             Theme = theme;
             Content = content;
@@ -49,8 +48,10 @@ namespace NoteTakingApp
             Number = (int)boxedNumber;
         }
 
-        public int CompareTo(Note other)
+        public int CompareTo(Note? other)
         {
+            if (other == null)
+                return 1;
             return this.Number.CompareTo(other.Number);
         }
     }

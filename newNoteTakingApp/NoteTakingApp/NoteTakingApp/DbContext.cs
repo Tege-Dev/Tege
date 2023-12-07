@@ -13,7 +13,7 @@ namespace NoteTakingApp
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-3A40JJ7\\MSSQLSERVERNOTES;Initial Catalog=Notes;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=noteApp;Trusted_Connection=True;Encrypt=False;");
         }
     }
 }
