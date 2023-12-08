@@ -32,7 +32,7 @@ namespace NoteTakingApp
             if (result == true)
             {
                 string username = LoginWindow.Username;
-                bool rememberMe = loginWindow.RememberMe;
+                bool rememberMe = LoginWindow.RememberMe;
                 // TODO: panaudoti username ir rememberMe
             }
             else

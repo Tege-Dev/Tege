@@ -101,18 +101,24 @@ namespace NoteTakingApp
         }
 
 
-        private int CompareByNumber(Note note1, Note note2)
+        private int CompareByNumber(Note note1, Note? note2)
         {
+            if (note2 == null)
+                return -1;
             return note1.Number.CompareTo(note2.Number);
         }
 
-        private int CompareByAuthor(Note note1, Note note2)
+        private int CompareByAuthor(Note note1, Note? note2)
         {
+            if(note2 == null)
+                return -1;
             return note1.Author.CompareTo(note2.Author);
         }
 
-        private int CompareByTheme(Note note1, Note note2)
+        private int CompareByTheme(Note note1, Note? note2)
         {
+            if (note2 == null)
+                return -1;
             return note1.Theme.CompareTo(note2.Theme);
         }
     }

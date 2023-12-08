@@ -17,6 +17,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Net;
 
 namespace NoteTakingApp
 {
@@ -24,6 +25,7 @@ namespace NoteTakingApp
     {
 
         private NoteDbContext dbContext;
+        private String Author = LoginWindow.Username;
         public ObservableCollection<Note> Notes { get; set; }
 
         public MainWindow()
@@ -58,12 +60,11 @@ namespace NoteTakingApp
 
         public ObservableCollection<Note> LoadNotesFromDatabase()
         {
-            return new ObservableCollection<Note>(dbContext.Notes.ToList());
+            return new ObservableCollection<Note>(dbContext.Notes.Where(note => note.Author.Contains(Author)).ToList());
         }
 
         public void SaveNotesToDatabase()
         {
-
             foreach (var note in Notes)
             {
                 // If the note with the same ID exists in the database, update it
