@@ -6,27 +6,28 @@ namespace NoteTakingApp
 {
     public partial class EditNoteWindow : Window
     {
-        private Note note;
+        private Note selectedNote;
+        private MainWindow mainWindow;
 
-        public EditNoteWindow(Note selectedNote)
+        public EditNoteWindow(MainWindow mainWindow, Note selectedNote)
         {
             InitializeComponent();
-            note = selectedNote;
-            editNoteTitleText.Text = note.Title;
-            editNoteDetailsText.Text = note.Content;
+            this.selectedNote = selectedNote;
+            this.mainWindow = mainWindow;
+            editNoteTitleText.Text = selectedNote.Title;
+            editNoteDetailsText.Text = selectedNote.Content;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             // Update note content
-            note.Title = editNoteTitleText.Text;
-            note.Content = editNoteDetailsText.Text;
+            selectedNote.Title = editNoteTitleText.Text;
+            selectedNote.Content = editNoteDetailsText.Text;
 
             // Save changes to the database
-            MainWindow main = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
-            main.SaveNotesToDatabase();
+            mainWindow.UpdateNote(selectedNote);
 
-            var noteWindow = new NoteWindow(note);
+            var noteWindow = new NoteWindow(mainWindow, selectedNote);
             noteWindow.Show();
             // Close the window
             Close();

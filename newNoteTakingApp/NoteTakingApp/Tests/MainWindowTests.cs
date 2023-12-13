@@ -39,7 +39,7 @@ namespace Tests
                 // Initialize and run the UI-related code on the STA thread
                 mainWindow = new MainWindow();
                 mainWindow.Notes.Add(expectedNote);
-                mainWindow.SaveNotesToDatabase();
+                mainWindow.SaveNoteToDatabase();
 
                 // Signal the test thread that the UI-related code has completed
                 manualResetEvent.Set();
@@ -80,7 +80,7 @@ namespace Tests
             {
                 mainWindow = new MainWindow();
                 mainWindow.Notes.Add(expectedNote);
-                mainWindow.SaveNotesToDatabase();
+                mainWindow.SaveNoteToDatabase();
             });
 
             thread.SetApartmentState(ApartmentState.STA);

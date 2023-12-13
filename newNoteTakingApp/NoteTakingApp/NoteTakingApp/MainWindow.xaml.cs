@@ -18,6 +18,7 @@ using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Net;
+using System.Collections.Immutable;
 
 namespace NoteTakingApp
 {
@@ -54,7 +55,7 @@ namespace NoteTakingApp
 
         private void AddNote(object sender, RoutedEventArgs e)
         {
-            var newAddNote = new AddNote(Notes, this);
+            var newAddNote = new AddNote(this, dbContext);
             newAddNote.Show();
         }
 
@@ -63,38 +64,47 @@ namespace NoteTakingApp
             return new ObservableCollection<Note>(dbContext.Notes.Where(note => note.Author.Contains(Author)).ToList());
         }
 
-        public void SaveNotesToDatabase()
+        public void SaveNote(Note newNote)
         {
-            foreach (var note in Notes)
-            {
-                // If the note with the same ID exists in the database, update it
-                var existingNote = dbContext.Notes.Find(note.Number);
-                if (existingNote != null)
-                {
-                    dbContext.Entry(existingNote).CurrentValues.SetValues(note);
-                }
-                else
-                {
-                    // If the note doesn't exist in the database, add it
-                    dbContext.Notes.Add(note);
-                }
-            }
-            //TODO: change tracking, only SaveChanges();
-            //TODO: endpoint i db || api
-            //TODO: (Usage of middleware and at)? least one interceptor;
+            Notes.Add(newNote);
+            dbContext.Notes.Add(newNote);
             dbContext.SaveChanges();
         }
+
+        public void UpdateNote(Note updatedNote)
+        {
+            var existingNote = dbContext.Notes.Find(updatedNote.Number);
+
+            if (existingNote != null)
+            {
+                Notes.Remove(existingNote);
+                Notes.Add(updatedNote);
+
+                existingNote.Title = updatedNote.Title;
+                existingNote.Content = updatedNote.Content;
+                existingNote.Privacy = updatedNote.Privacy;
+
+                dbContext.SaveChanges();
+            }
+            else
+            {
+
+                throw new InvalidOperationException($"Note with ID {updatedNote.Number} not found.");
+            }
+        }
+
 
         private void NotesCardClick(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
             if (button.DataContext is Note selectedNote)
             {
-                var noteWindow = new NoteWindow(selectedNote);
+                var noteWindow = new NoteWindow(this, selectedNote);
                 noteWindow.Show();
                 Visibility = Visibility.Collapsed;
             }
         }
+
         public void OpenMainWindow()
         {
             Visibility = Visibility.Visible;
