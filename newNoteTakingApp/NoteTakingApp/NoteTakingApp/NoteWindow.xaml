@@ -8,18 +8,12 @@
         Title="NoteWindow" Height="450" Width="800">
     <Grid>
         <Grid x:Name="viewMode">
-            <!-- Centered note theme at the top with a bigger shift -->
             <TextBlock Name="noteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Text="Note Theme" />
-
-            <!-- Contents with a normal shift from the left -->
-            <TextBox Name="noteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap" IsReadOnly="True"/>
-
-            <!-- Buttons for actions -->
-            <Button Name="editButton" Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Visibility="Visible"/>
-            <Button Name="backButton" Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+            <TextBox Name="noteDetailsText" Margin="20,50,20,20" TextWrapping="Wrap" IsReadOnly="True"/>
+            <Button Name="editButton" Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Visibility="Visible" Width="40"/>
+            <Button Name="backButton" Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20"/>
         </Grid>
 
-        <!-- Editing Mode -->
         <Grid x:Name="editMode" Visibility="Collapsed">
             <TextBox Name="editNoteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" BorderThickness="0"/>
             <TextBox Name="editNoteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap"/>
