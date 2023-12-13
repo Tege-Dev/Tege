@@ -9,16 +9,17 @@
     <Grid>
         <Grid x:Name="viewMode">
             <TextBlock Name="noteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Text="Note Theme" />
-            <TextBox Name="noteDetailsText" Margin="20,50,20,20" TextWrapping="Wrap" IsReadOnly="True"/>
+            <TextBox Name="noteDetailsText" Margin="20,50,20,30" TextWrapping="Wrap" IsReadOnly="True"/>
             <Button Name="editButton" Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Visibility="Visible" Width="40"/>
-            <Button Name="backButton" Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20"/>
+            <Button Name="backButton" Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20" Width="40"/>
         </Grid>
 
         <Grid x:Name="editMode" Visibility="Collapsed">
             <TextBox Name="editNoteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" BorderThickness="0"/>
-            <TextBox Name="editNoteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap"/>
-            <Button Content="Cancel" Click="CancelEdit_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
-            <Button Name="saveButton" Content="Save Changes" Click="SaveChanges_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"/>
+            <TextBox Name="editNoteDetailsText" Margin="20,50,20,30" TextWrapping="Wrap"/>
+            <Button Content="Cancel" Click="CancelEdit_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20"/>
+            <Button Name="saveButton" Content="Save Changes" Click="SaveChanges_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
         </Grid>
+        <TextBlock Name="noteAuthorText" VerticalAlignment="Bottom" HorizontalAlignment="Right"  FontSize="14" FontWeight="Normal" Margin="0, 0, 20, 5" Text="Sample" />
     </Grid>
 </Window>

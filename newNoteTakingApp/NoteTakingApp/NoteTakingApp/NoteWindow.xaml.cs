@@ -28,6 +28,7 @@ namespace NoteTakingApp
             this.selectedNote = selectedNote;
             noteTitleText.Text = selectedNote.Title;
             noteDetailsText.Text = selectedNote.Content;
+            noteAuthorText.Text = "Author: " + selectedNote.Author;
         }
 
         private void EditNote_Click(object sender, RoutedEventArgs e)
