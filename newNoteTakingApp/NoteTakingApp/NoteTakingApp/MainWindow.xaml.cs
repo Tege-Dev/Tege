@@ -79,10 +79,11 @@ namespace NoteTakingApp
                     dbContext.Notes.Add(note);
                 }
             }
-
+            //TODO: change tracking, only SaveChanges();
+            //TODO: endpoint i db || api
+            //TODO: (Usage of middleware and at)? least one interceptor;
             dbContext.SaveChanges();
         }
-
 
         private void NotesCardClick(object sender, RoutedEventArgs e)
         {
