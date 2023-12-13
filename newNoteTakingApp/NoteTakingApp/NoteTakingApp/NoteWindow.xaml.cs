@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,17 +23,38 @@ namespace NoteTakingApp
         public NoteWindow(MainWindow mainWindow, Note selectedNote)
         {
             InitializeComponent();
-
+            
             this.mainWindow = mainWindow;
             this.selectedNote = selectedNote;
-            noteThemeText.Text = selectedNote.Title;
+            noteTitleText.Text = selectedNote.Title;
             noteDetailsText.Text = selectedNote.Content;
         }
+
         private void EditNote_Click(object sender, RoutedEventArgs e)
         {
-            var editNoteWindow = new EditNoteWindow(mainWindow, selectedNote);
-            editNoteWindow.Show();
-            Close();
+            
+            viewMode.Visibility = Visibility.Collapsed;
+            editMode.Visibility = Visibility.Visible;
+
+            editNoteTitleText.Text = selectedNote.Title;
+            editNoteDetailsText.Text = selectedNote.Content;
+        }
+
+        private void SaveChanges_Click(object sender, RoutedEventArgs e)
+        {
+            selectedNote.Title = noteTitleText.Text = editNoteTitleText.Text;
+            selectedNote.Content = noteDetailsText.Text = editNoteDetailsText.Text;
+
+            mainWindow.UpdateNote(selectedNote);
+
+            viewMode.Visibility = Visibility.Visible;
+            editMode.Visibility = Visibility.Collapsed;
+        }
+
+        private void CancelEdit_Click(object sender, RoutedEventArgs e)
+        {
+            viewMode.Visibility = Visibility.Visible;
+            editMode.Visibility = Visibility.Collapsed;
         }
 
         private void BackToMainWidnow_Click(object sender, RoutedEventArgs e)
@@ -41,4 +63,5 @@ namespace NoteTakingApp
             Close();
         }
     }
+
 }
