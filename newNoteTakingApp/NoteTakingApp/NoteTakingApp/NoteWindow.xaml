@@ -7,13 +7,24 @@
         mc:Ignorable="d"
         Title="NoteWindow" Height="450" Width="800">
     <Grid>
-        <!-- Centered note theme at the top with a bigger shift -->
-        <TextBlock Name="noteThemeText" Margin="10,20,0,0" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Text="Note Theme" />
+        <Grid x:Name="viewMode">
+            <!-- Centered note theme at the top with a bigger shift -->
+            <TextBlock Name="noteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Text="Note Theme" />
 
-        <!-- Contents with a normal shift from the left -->
-        <TextBlock Name="noteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap" />
-        
-        <Button Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"/>
-        <Button Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+            <!-- Contents with a normal shift from the left -->
+            <TextBox Name="noteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap" IsReadOnly="True"/>
+
+            <!-- Buttons for actions -->
+            <Button Name="editButton" Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Visibility="Visible"/>
+            <Button Name="backButton" Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+        </Grid>
+
+        <!-- Editing Mode -->
+        <Grid x:Name="editMode" Visibility="Collapsed">
+            <TextBox Name="editNoteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" BorderThickness="0"/>
+            <TextBox Name="editNoteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap"/>
+            <Button Content="Cancel" Click="CancelEdit_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+            <Button Name="saveButton" Content="Save Changes" Click="SaveChanges_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"/>
+        </Grid>
     </Grid>
 </Window>
