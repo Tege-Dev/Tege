@@ -49,14 +49,13 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" Margin="0, 0, 10, 0">
+                            <Label Content="{Binding Title}" Padding="1" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
                             <Button Height="150" Width="110" Cursor="Hand" BorderThickness="4" BorderBrush="{StaticResource SecondaryBrush}"  Click="NotesCardClick" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Top">
-                                    <Border>
-                                        <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Margin="5, 10, 5, 10" TextTrimming="WordEllipsis" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Medium" Foreground="Black"/>
-                                    </Border>
-                                </Button>
-
-                            <Label Content="{Binding Theme}" Padding="1" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
-                            <Label Content="{Binding Author}" Padding="1" FontStyle="Italic" FontSize="11" Foreground="White"/>
+                                <Border>
+                                    <TextBlock Text="{Binding Content}" TextWrapping="Wrap" Margin="5, 10, 5, 10" TextTrimming="WordEllipsis" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Medium" Foreground="Black"/>
+                                </Border>
+                            </Button>
+                            <Label Content="{Binding Author}" Padding="1" FontStyle="Italic" FontSize="11" Foreground="White" HorizontalAlignment="Right"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

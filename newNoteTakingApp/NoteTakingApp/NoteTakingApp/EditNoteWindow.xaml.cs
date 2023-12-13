@@ -12,14 +12,14 @@ namespace NoteTakingApp
         {
             InitializeComponent();
             note = selectedNote;
-            editNoteThemeText.Text = note.Theme;
+            editNoteThemeText.Text = note.Title;
             editNoteDetailsText.Text = note.Content;
         }
 
         private void SaveChanges_Click(object sender, RoutedEventArgs e)
         {
             // Update note content
-            note.Theme = editNoteThemeText.Text;
+            note.Title = editNoteThemeText.Text;
             note.Content = editNoteDetailsText.Text;
 
             // Save changes to the database

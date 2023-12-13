@@ -21,7 +21,7 @@ namespace NoteTakingApp
         {
             InitializeComponent();
             this.note = note;
-            noteThemeText.Text = note.Theme;
+            noteThemeText.Text = note.Title;
             noteDetailsText.Text = note.Content;
         }
         private void EditNote_Click(object sender, RoutedEventArgs e)

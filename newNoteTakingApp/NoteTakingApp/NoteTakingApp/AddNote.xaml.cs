@@ -41,31 +41,22 @@ namespace NoteTakingApp
 
         public void AddNewNote(object sender, RoutedEventArgs e)
         {
-            var author = authorTextBox.Text.Trim();
             var content = noteContentTextBox.Text.Trim();
-            var theme = themeTextBox.Text.Trim();
+            var title = titleTextBox.Text.Trim();
             var privacy = (PrivacySetting)privacyComboBox.SelectedItem;
-            var tag = tagTextBox.Text.Trim();
-            string namePattern = @"^[A-Za-z\s]+$";
 
-            if (Regex.IsMatch(author, namePattern))
-            {
-                if (string.IsNullOrEmpty(author) || string.IsNullOrEmpty(content) || string.IsNullOrEmpty(theme))
+                if (string.IsNullOrEmpty(content) || string.IsNullOrEmpty(title))
                 {
                     MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
                 var noteNumber = Notes.Count + 1;
-                var newNote = new Note(theme, content, privacy, tag);
+                var newNote = new Note(title, content, privacy);
                 Notes.Add(newNote);
                 mainWindow.SaveNotesToDatabase();
-                //mainWindow.SaveNotesToFile();
 
                 Close();
-
-            }
-            else MessageBox.Show("Invalid input. Please use only letters and spaces.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

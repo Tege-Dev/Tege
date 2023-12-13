@@ -17,13 +17,12 @@ namespace Tests
         [TestMethod]
         public void Note_Constructors_ShouldInitializeProperties()
         {
-            var note = new Note("Theme", "Content", PrivacySetting.Private, "Tag");
+            var note = new Note("Theme", "Content", PrivacySetting.Private);
             Assert.AreEqual(1, note.Number);
             Assert.AreEqual("Author", note.Author);
-            Assert.AreEqual("Theme", note.Theme);
+            Assert.AreEqual("Theme", note.Title);
             Assert.AreEqual("Content", note.Content);
             Assert.AreEqual(PrivacySetting.Private, note.Privacy);
-            Assert.AreEqual("Tag", note.Tag);
         }
 
         [TestMethod]
@@ -31,7 +30,7 @@ namespace Tests
         {
             // Arrange
             MainWindow mainWindow = null;
-            var expectedNote = new Note("Theme", "Content", PrivacySetting.Private, "Tag");
+            var expectedNote = new Note("Theme", "Content", PrivacySetting.Private);
             var manualResetEvent = new ManualResetEvent(false);
 
             // Act
@@ -64,10 +63,9 @@ namespace Tests
             Assert.AreEqual(1, loadedNotes.Count);
             Assert.AreEqual(expectedNote.Number, loadedNotes[0].Number);
             Assert.AreEqual(expectedNote.Author, loadedNotes[0].Author);
-            Assert.AreEqual(expectedNote.Theme, loadedNotes[0].Theme);
+            Assert.AreEqual(expectedNote.Title, loadedNotes[0].Title);
             Assert.AreEqual(expectedNote.Content, loadedNotes[0].Content);
             Assert.AreEqual(expectedNote.Privacy, loadedNotes[0].Privacy);
-            Assert.AreEqual(expectedNote.Tag, loadedNotes[0].Tag);
         }
 
         [TestMethod]
@@ -75,7 +73,7 @@ namespace Tests
         {
             // Arrange
             MainWindow mainWindow = null;
-            var expectedNote = new Note("Theme", "Content", PrivacySetting.Private, "Tag");
+            var expectedNote = new Note("Theme", "Content", PrivacySetting.Private);
 
             // Act
             var thread = new Thread(() =>
@@ -96,10 +94,9 @@ namespace Tests
                 Assert.IsNotNull(savedNote);
                 Assert.AreEqual(expectedNote.Number, savedNote.Number);
                 Assert.AreEqual(expectedNote.Author, savedNote.Author);
-                Assert.AreEqual(expectedNote.Theme, savedNote.Theme);
+                Assert.AreEqual(expectedNote.Title, savedNote.Title);
                 Assert.AreEqual(expectedNote.Content, savedNote.Content);
                 Assert.AreEqual(expectedNote.Privacy, savedNote.Privacy);
-                Assert.AreEqual(expectedNote.Tag, savedNote.Tag);
             }
         }
 
