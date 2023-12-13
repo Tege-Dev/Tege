@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,19 +28,54 @@ namespace NoteTakingApp
             LoadSavedUsername();
         }
 
+        // LoginWindow.xaml.cs
+        private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string namePattern = @"^[A-Za-z0-9]+$";
+            string username = usernameTextBox.Text;
+
+            if (string.IsNullOrEmpty(username))
+            {
+                validationMessage.Text = "Username cannot be empty.";
+                validationMessage.Foreground = Brushes.Red;
+                okButton.IsEnabled = false;
+            }
+            else if (username.Length > 20)
+            {
+                validationMessage.Text = "Username is too long.";
+                validationMessage.Foreground = Brushes.Red;
+                okButton.IsEnabled = false;
+            }
+            else if (!Regex.IsMatch(username, namePattern))
+            {
+                validationMessage.Text = "Invalid characters. Use only letters and numbers.";
+                validationMessage.Foreground = Brushes.Red;
+                okButton.IsEnabled = false;
+            }
+            else
+            {
+                validationMessage.Text = "Valid";
+                validationMessage.Foreground = Brushes.Green;
+                okButton.IsEnabled = true;
+            }
+        }
+
+        // LoginWindow.xaml.cs
+        private void UsernameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && okButton.IsEnabled)
+            {
+                OKButton_Click(sender, e);
+            }
+        }
+
+
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(usernameTextBox.Text))
-            {
-                MessageBox.Show("Please enter a valid username.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
             Username = usernameTextBox.Text;
             RememberMe = rememberCheckBox.IsChecked ?? false;
 
             SaveUsername(Username, RememberMe);
-
             DialogResult = true;
         }
 
