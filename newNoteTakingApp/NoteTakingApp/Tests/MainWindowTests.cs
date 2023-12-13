@@ -17,7 +17,7 @@ namespace Tests
         [TestMethod]
         public void Note_Constructors_ShouldInitializeProperties()
         {
-            var note = new Note(1, "Author", "Theme", "Content", PrivacySetting.Private, "Tag");
+            var note = new Note("Theme", "Content", PrivacySetting.Private, "Tag");
             Assert.AreEqual(1, note.Number);
             Assert.AreEqual("Author", note.Author);
             Assert.AreEqual("Theme", note.Theme);
@@ -31,7 +31,7 @@ namespace Tests
         {
             // Arrange
             MainWindow mainWindow = null;
-            var expectedNote = new Note(1, "Author", "Theme", "Content", PrivacySetting.Private, "Tag");
+            var expectedNote = new Note("Theme", "Content", PrivacySetting.Private, "Tag");
             var manualResetEvent = new ManualResetEvent(false);
 
             // Act
@@ -75,7 +75,7 @@ namespace Tests
         {
             // Arrange
             MainWindow mainWindow = null;
-            var expectedNote = new Note(1, "Author", "Theme", "Content", PrivacySetting.Private, "Tag");
+            var expectedNote = new Note("Theme", "Content", PrivacySetting.Private, "Tag");
 
             // Act
             var thread = new Thread(() =>

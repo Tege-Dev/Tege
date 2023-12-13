@@ -57,7 +57,7 @@ namespace NoteTakingApp
                 }
 
                 var noteNumber = Notes.Count + 1;
-                var newNote = new Note(noteNumber, author, theme, content, privacy, tag);
+                var newNote = new Note(theme, content, privacy, tag);
                 Notes.Add(newNote);
                 mainWindow.SaveNotesToDatabase();
                 //mainWindow.SaveNotesToFile();
