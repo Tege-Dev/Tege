@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="EditNoteWindow" Height="300" Width="500">
 	<Grid>
-		<TextBox Name="editNoteThemeText" Margin="10,20,0,0" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
+		<TextBox Name="editNoteTitleText" Margin="10,20,0,0" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
 		<TextBox Name="editNoteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap"/>
 		<Button Content="Save Changes" Click="SaveChanges_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
 	</Grid>
