@@ -32,7 +32,7 @@ namespace NoteTakingApp
             notesListBox.Items.Clear();
             foreach (Note note in notes)
             {
-                var displayText = $"{note.Number} - Privacy: {note.Privacy} -  ({note.Tag}): {note.Author.CapitalizeFirstLetter()} {note.Theme.CapitalizeFirstLetter()}. {note.Content.CapitalizeFirstLetter()}";
+                var displayText = $"{note.Number} - Privacy: {note.Privacy} {note.Author.CapitalizeFirstLetter()} {note.Title.CapitalizeFirstLetter()}. {note.Content.CapitalizeFirstLetter()}";
                 notesListBox.Items.Add(displayText);
             }
         }
@@ -43,7 +43,7 @@ namespace NoteTakingApp
             var keyword = searchTextBox.Text;
             if (!string.IsNullOrWhiteSpace(keyword))
             {
-                var matchingNotes = new ObservableCollection<Note>(Notes.Where(note => note.Theme.Contains(keyword)).ToList());
+                var matchingNotes = new ObservableCollection<Note>(Notes.Where(note => note.Title.Contains(keyword)).ToList());
                 DisplayNotesInListBox(matchingNotes);
             }
             else
@@ -81,9 +81,6 @@ namespace NoteTakingApp
                 case "Author":
                     sortFunction = CompareByAuthor;
                     break;
-                case "Theme":
-                    sortFunction = CompareByTheme;
-                    break;
             }
 
             List<Note> sortedList = ascendingOrder
@@ -115,11 +112,11 @@ namespace NoteTakingApp
             return note1.Author.CompareTo(note2.Author);
         }
 
-        private int CompareByTheme(Note note1, Note? note2)
+        private int CompareByTitle(Note note1, Note? note2)
         {
             if (note2 == null)
                 return -1;
-            return note1.Theme.CompareTo(note2.Theme);
+            return note1.Title.CompareTo(note2.Title);
         }
     }
 }

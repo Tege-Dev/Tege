@@ -12,7 +12,7 @@
         <StackPanel Margin="10,0,10,10" Grid.RowSpan="2">
             <TextBlock Text="Username:" Margin="0, 5, 0, 0"/>
             <TextBox x:Name="usernameTextBox" TextChanged="UsernameTextBox_TextChanged" KeyDown="UsernameTextBox_KeyDown"/>
-            <TextBlock x:Name="validationMessage" Foreground="Red"/>
+            <TextBlock x:Name="validationMessage" Foreground="Red" HorizontalAlignment="Right"/>
             <CheckBox x:Name="rememberCheckBox" Content="Remember me" Checked="RememberCheckBox_Checked" Margin="0, 0,0,0"/>
             <Button x:Name="okButton" Content="OK" Click="OKButton_Click" Foreground="Black" Background="#038172" Margin="0, 0, 0, 0" FontWeight="Bold" IsEnabled="False"/>
         </StackPanel>

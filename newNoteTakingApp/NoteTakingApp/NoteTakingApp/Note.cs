@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NoteTakingApp
 {
@@ -21,20 +16,19 @@ namespace NoteTakingApp
         [Required]
         public string Author { get; set; } = LoginWindow.Username;
         [Required]
-        public string Theme { get; set; }
+        public string Title { get; set; }
         [Required]
         public string Content { get; set; }
 
-        public string Tag { get; set; }
-
         public PrivacySetting Privacy { get; set; }
 
-        public Note(string theme, string content, PrivacySetting privacy = PrivacySetting.Private, string tag = null!)
+        public Note(){}
+
+        public Note(string title, string content, PrivacySetting privacy = PrivacySetting.Private)
         {
-            Theme = theme;
+            Title = title;
             Content = content;
             Privacy = privacy;
-            Tag = tag;
         }
         public object NumberToObject()
         {
