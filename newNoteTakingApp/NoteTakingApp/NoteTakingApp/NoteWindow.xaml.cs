@@ -16,10 +16,28 @@ namespace NoteTakingApp
 {
     public partial class NoteWindow : Window
     {
-        public NoteWindow(string noteDetails)
+        private Note note;
+        public NoteWindow(Note note)
         {
             InitializeComponent();
-            noteDetailsText.Text = noteDetails;
+            this.note = note;
+            noteThemeText.Text = note.Theme;
+            noteDetailsText.Text = note.Content;
         }
+        private void EditNote_Click(object sender, RoutedEventArgs e)
+        {
+            var editNoteWindow = new EditNoteWindow(note);
+            editNoteWindow.Show();
+            Close();
+        }
+
+        private void BackToMainWidnow_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = new MainWindow();
+            mainWindow.OpenMainWindow();
+            Close();
+        }
+
+
     }
 }

@@ -90,11 +90,21 @@ namespace NoteTakingApp
             var button = (Button)sender;
             if (button.DataContext is Note selectedNote)
             {
-                var noteDetails = $"Number: {selectedNote.Number}\nAuthor: {selectedNote.Author}\nTheme: {selectedNote.Theme}\nContent: {selectedNote.Content}";
-
-                var noteWindow = new NoteWindow(noteDetails);
+                var noteWindow = new NoteWindow(selectedNote);
                 noteWindow.Show();
+                Visibility = Visibility.Collapsed;
             }
+        }
+        public void OpenMainWindow()
+        {
+            Visibility = Visibility.Visible;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = false;
+
+            Environment.Exit(0);
         }
     }
 }

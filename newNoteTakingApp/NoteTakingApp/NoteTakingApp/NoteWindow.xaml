@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="NoteWindow" Height="450" Width="800">
     <Grid>
-        <TextBlock Name="noteDetailsText" Margin="10" />
+        <!-- Centered note theme at the top with a bigger shift -->
+        <TextBlock Name="noteThemeText" Margin="10,20,0,0" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Text="Note Theme" />
+
+        <!-- Contents with a normal shift from the left -->
+        <TextBlock Name="noteDetailsText" Margin="20,50,10,10" TextWrapping="Wrap" />
+        
+        <Button Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"/>
+        <Button Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
     </Grid>
 </Window>
