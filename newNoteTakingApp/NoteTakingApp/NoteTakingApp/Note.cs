@@ -14,7 +14,7 @@ namespace NoteTakingApp
         [Key]
         public int Number { get; set; }
         [Required]
-        public string Author { get; set; } = LoginWindow.Username;
+        public string Author { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -24,8 +24,9 @@ namespace NoteTakingApp
 
         public Note(){}
 
-        public Note(string title, string content, PrivacySetting privacy = PrivacySetting.Private)
+        public Note(string author, string title, string content, PrivacySetting privacy = PrivacySetting.Private)
         {
+            Author = author;
             Title = title;
             Content = content;
             Privacy = privacy;

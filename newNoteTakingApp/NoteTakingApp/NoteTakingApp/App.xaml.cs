@@ -16,31 +16,23 @@ namespace NoteTakingApp
     {
         public App()
         {
-            //var dbContext = new NoteDbContext();
-            //var mainWindow = new MainWindow(dbContext);
-            //mainWindow.Show();
+            
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        /*protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
 
+            base.OnStartup(e);
             var loginWindow = new LoginWindow();
-            var mainWindow = new MainWindow();
+            //var mainWindow = new MainWindow();
             var result = loginWindow.ShowDialog();
 
-            if (result == true)
+            if (result == false)
             {
-                string username = LoginWindow.Username;
-                bool rememberMe = LoginWindow.RememberMe;
-                // TODO: panaudoti username ir rememberMe
-            }
-            else
-            {
-                // The user closed the window or clicked Cancel
                 Shutdown();
             }
-        }
+
+        }*/
     }
 }
 
