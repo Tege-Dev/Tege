@@ -31,8 +31,13 @@ namespace NoteTakingApp
         // LoginWindow.xaml.cs
         private void UsernameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            int caretIndex = usernameTextBox.CaretIndex;
+
             string namePattern = @"^[A-Za-z0-9]+$";
-            string username = usernameTextBox.Text;
+            string username = usernameTextBox.Text.ToLower();
+
+            usernameTextBox.Text = username;
+            usernameTextBox.CaretIndex = caretIndex;
 
             if (string.IsNullOrEmpty(username))
             {
@@ -69,7 +74,6 @@ namespace NoteTakingApp
             }
         }
 
-
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             Username = usernameTextBox.Text;
@@ -92,7 +96,7 @@ namespace NoteTakingApp
             }
         }
 
-        private void SaveUsername(String? userName, bool rememberMeOption)
+        private void SaveUsername(String userName, bool rememberMeOption)
         {
             // Save the username and option to remember to application settings
             Properties.Settings.Default.SavedUsername = userName;

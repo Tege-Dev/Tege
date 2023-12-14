@@ -38,7 +38,7 @@ namespace NoteTakingApp
             }
             Author = Properties.Settings.Default.SavedUsername;
             dbContext = new NoteDbContext();
-            Notes = new ObservableCollection<Note>(LoadNotesFromDatabase());
+            Notes = new ObservableCollection<Note>(LoadUserNotes(Author));
             DataContext = this;
         }
 
@@ -52,6 +52,23 @@ namespace NoteTakingApp
         {
             var newDisplayNotes = new DisplayNotes(Notes, this);
             newDisplayNotes.Show();
+        }
+        private void ChangeUser(object sender, RoutedEventArgs e)
+        {
+            if (!UsernameDialog())
+            {
+                return;
+            }
+            Properties.Settings.Default.Reload();
+            Author = Properties.Settings.Default.SavedUsername;
+
+            dbContext = new NoteDbContext();
+            Notes.Clear();
+            var newNotes = LoadUserNotes(Author);
+            foreach (var note in newNotes)
+            {
+                Notes.Add(note);
+            }
         }
         private void ClearNotes(object sender, RoutedEventArgs e)
         {
@@ -69,9 +86,16 @@ namespace NoteTakingApp
             newAddNote.Show();
         }
 
-        public ObservableCollection<Note> LoadNotesFromDatabase()
+        //Notes = new ObservableCollection<Note>(LoadPublicNotes());
+
+        public ObservableCollection<Note> LoadPublicNotes()
         {
-            return new ObservableCollection<Note>(dbContext.Notes.Where(note => note.Author.Contains(Author)).ToList());
+            return new ObservableCollection<Note>(dbContext.Notes.Where(note => note.Privacy.Equals(PrivacySetting.Public)));
+        }
+
+        public ObservableCollection<Note> LoadUserNotes(string Author)
+        {
+            return new ObservableCollection<Note>(dbContext.Notes.Where(note => note.Author.Equals(Author)));
         }
 
         public void SaveNote(Note newNote)
@@ -98,7 +122,6 @@ namespace NoteTakingApp
             }
             else
             {
-
                 throw new InvalidOperationException($"Note with ID {updatedNote.Number} not found.");
             }
         }

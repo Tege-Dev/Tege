@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NoteTakingApp
 {
-    public static class ExtensionMethod
+    public static class StringExtensions
     {
         public static string CapitalizeFirstLetter(this string input)
         {
@@ -15,7 +15,9 @@ namespace NoteTakingApp
                 return input;
             }
 
-            return char.ToUpper(input[0]) + input.Substring(1);
+            // Capitalize the first letter and convert the rest to lowercase
+            return char.ToUpper(input[0]) + input.Substring(1).ToLower();
         }
     }
+
 }
