@@ -32,7 +32,7 @@ namespace NoteTakingApp
                 return;
             }
 
-            var newNote = new Note(title, content, privacy);
+            var newNote = new Note(Properties.Settings.Default.SavedUsername, title, content, privacy);
 
             mainWindow.SaveNote(newNote);
 

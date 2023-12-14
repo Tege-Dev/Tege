@@ -19,8 +19,8 @@ namespace NoteTakingApp
 {
     public partial class LoginWindow : Window
     {
-        public static string Username { get; private set; } = string.Empty;
-        public static bool RememberMe { get; private set; }
+        private string Username { get; set; } = string.Empty;
+        private bool RememberMe { get; set; }
 
         public LoginWindow()
         {
@@ -74,7 +74,6 @@ namespace NoteTakingApp
         {
             Username = usernameTextBox.Text;
             RememberMe = rememberCheckBox.IsChecked ?? false;
-
             SaveUsername(Username, RememberMe);
             DialogResult = true;
         }

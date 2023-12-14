@@ -26,16 +26,26 @@ namespace NoteTakingApp
     {
 
         private NoteDbContext dbContext;
-        private String Author = LoginWindow.Username;
+        private string Author;
         public ObservableCollection<Note> Notes { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            DependencyInjector injector = new DependencyInjector();
-            dbContext = injector.GetNoteDbContext();
+            if(!UsernameDialog())
+            {
+                Close();
+            }
+            Author = Properties.Settings.Default.SavedUsername;
+            dbContext = new NoteDbContext();
             Notes = new ObservableCollection<Note>(LoadNotesFromDatabase());
             DataContext = this;
+        }
+
+        private bool UsernameDialog()
+        {
+            var loginWindow = new LoginWindow();
+            return loginWindow.ShowDialog() ?? false;
         }
 
         public void DisplayNotes(object sender, RoutedEventArgs e)
