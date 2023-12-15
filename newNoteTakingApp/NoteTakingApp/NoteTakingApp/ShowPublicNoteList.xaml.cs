@@ -49,7 +49,7 @@ namespace NoteTakingApp
         {
             if (notesListView.SelectedItem is Note selectedNote)
             {
-                MainWindow.SavePublicNote(selectedNote);
+                MainWindow.SavePublicNoteAsync(selectedNote);
                 notesListView.SelectedItem = null;
             }
         }

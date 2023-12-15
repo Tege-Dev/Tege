@@ -24,9 +24,16 @@ using static Azure.Core.HttpHeader;
 
 namespace NoteTakingApp
 {
+    public class NoteNotFoundException : Exception
+{
+    public NoteNotFoundException(string message) : base(message)
+    {
+    }
+}
     public partial class MainWindow : Window
     {
-        private NoteDbContext dbContext;
+        private NoteDbContext dbContext = new NoteDbContext();
+        
         private string Author;
         public ObservableCollection<Note> ShowNotes { get; set; } = new ObservableCollection<Note>();
         public List<UserNote> UserNotes { get; set; }
@@ -44,31 +51,34 @@ namespace NoteTakingApp
             UpdateView();
         }
 
-        private void LoadData()
+        private async Task LoadDataAsync()
         {
             using (var dbContext = new NoteDbContext())
             {
-                UserNotes = dbContext.GetAllUserNotes();
-                Notes = dbContext.GetAllNotes();
+                UserNotes = await dbContext.GetAllUserNotesAsync();
+                Notes = await dbContext.GetAllNotesAsync();
             }
         }
 
         private void UpdateView(List<Note> notes)
         {
             ShowNotes.Clear();
-            ShowNotes.AddRange(notes);
+            foreach (var note in notes)
+            {
+                ShowNotes.Add(note);
+            }
         }
 
 
-        private void UpdateView()
+        private async void UpdateView()
         {
             if (userRadioButton.IsChecked ?? false)
-            { 
-                UpdateView(LoadUserNotes());
-            }
-            else if(publicRadioButton.IsChecked ?? false)
             {
-                UpdateView(GetNotesSavedByAuthor());
+                UpdateView(await LoadUserNotesAsync());
+            }
+            else if (publicRadioButton.IsChecked ?? false)
+            {
+                UpdateView(await GetNotesSavedByAuthorAsync());
             }
         }
 
@@ -107,15 +117,13 @@ namespace NoteTakingApp
 
         private void AddNote(object sender, RoutedEventArgs e)
         {
-            var newAddNote = new AddNote(this, dbContext);
+            var newAddNote = new AddNote(this);
             newAddNote.Show();
         }
 
-        //Notes = new ObservableCollection<Note>(LoadPublicNotes());
-
         public List<Note> GetPublicNotes()
         {
-            var authorSavedNotes = GetNotesSavedByAuthor();
+            var authorSavedNotes = GetNotesSavedByAuthorAsync();
 
             return new List<Note>(Notes
                 .Where(note => (note.Privacy == PrivacySetting.Public && !note.Author.Equals(Author, StringComparison.OrdinalIgnoreCase)))
@@ -130,68 +138,75 @@ namespace NoteTakingApp
                 .ToList());
         }
 
-        public List<Note> GetNotesSavedByAuthor()
+        public async Task<List<Note>> GetNotesSavedByAuthorAsync()
         {
-            LoadData();
+            await LoadDataAsync();
             var authorSavedNoteNumbers = AuthorNoteNumbers();
             return new List<Note>(Notes
                 .Where(note => authorSavedNoteNumbers.Contains(note.Number))
                 .ToList());
         }
 
-        public List<Note> LoadUserNotes()
+        public async Task<List<Note>> LoadUserNotesAsync()
         {
-            LoadData();
+            await LoadDataAsync();
             return new List<Note>(
                 Notes
                     .Where(note => note.Author.Equals(Author, StringComparison.OrdinalIgnoreCase))
                     .ToList());
         }
 
-        public void SaveNote(Note newNote)
+        public async void SaveNoteAsync(Note newNote)
         {
-            dbContext = new NoteDbContext();
-           
             dbContext.Notes.Add(newNote);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             UpdateView();
         }
 
-        public void SavePublicNote(Note note)
+        public async void SavePublicNoteAsync(Note note)
         {
-            dbContext = new NoteDbContext();
-            var saved = GetNotesSavedByAuthor();
+            var saved = await GetNotesSavedByAuthorAsync();
             if (saved.Any(n => n.Number == note.Number))
             {
                 return;
             }
             var userNote = new UserNote(Author, note.Number);
             dbContext.UserNotes.Add(userNote);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             UpdateView();
         }
 
         public void UpdateNote(Note updatedNote)
         {
-            dbContext = new NoteDbContext();
-            var existingNote = dbContext.Notes.Find(updatedNote.Number);
-
-            if (existingNote != null)
+            try
             {
-                existingNote.Title = updatedNote.Title;
-                existingNote.Content = updatedNote.Content;
-                existingNote.Privacy = updatedNote.Privacy;
+                var existingNote = dbContext.Notes.Find(updatedNote.Number);
 
-                dbContext.SaveChanges();
-                UpdateView();
+                if (existingNote != null)
+                {
+                    existingNote.Title = updatedNote.Title;
+                    existingNote.Content = updatedNote.Content;
+                    existingNote.Privacy = updatedNote.Privacy;
+
+                    dbContext.SaveChanges();
+                    UpdateView();
+                }
+                else
+                {
+                    // Throw custom exception if the note is not found
+                    throw new NoteNotFoundException($"Note with ID {updatedNote.Number} was not found.");
+                }
             }
-            else
+            catch (NoteNotFoundException ex)
             {
-                throw new InvalidOperationException($"Note with ID {updatedNote.Number} not found.");
+                // Log the exception (you can replace this with your preferred logging mechanism)
+                //LogException(ex);
+                // Optionally rethrow the exception if you want the caller to handle it
+                throw;
             }
         }
 
-        private void NotesCardClick(object sender, RoutedEventArgs e)
+            private void NotesCardClick(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
             if (button.DataContext is Note selectedNote)

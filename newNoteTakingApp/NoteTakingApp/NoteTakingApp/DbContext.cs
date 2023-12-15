@@ -17,14 +17,14 @@ namespace NoteTakingApp
             optionsBuilder.UseSqlServer("Server=localhost;Database=noteApp;Trusted_Connection=True;Encrypt=False;");
         }
 
-        public List<Note> GetAllNotes()
+        public async Task<List<Note>> GetAllNotesAsync()
         {
-            return Notes.ToList();
+            return await Notes.ToListAsync();
         }
 
-        public List<UserNote> GetAllUserNotes()
+        public async Task<List<UserNote>> GetAllUserNotesAsync()
         {
-            return UserNotes.ToList();
+            return await UserNotes.ToListAsync();
         }
 
     }
