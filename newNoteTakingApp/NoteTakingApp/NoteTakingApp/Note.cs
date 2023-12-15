@@ -9,7 +9,7 @@ namespace NoteTakingApp
         Private = 1
     }
 
-    public class Note : IComparable<Note>
+    public class Note
     {
         [Key]
         public int Number { get; set; }
@@ -31,23 +31,5 @@ namespace NoteTakingApp
             Content = content;
             Privacy = privacy;
         }
-        public object NumberToObject()
-        {
-            object boxedNumber = Number;
-            return boxedNumber;
-        }
-
-        public void NumberFromObject(object boxedNumber)
-        {
-            Number = (int)boxedNumber;
-        }
-
-        public int CompareTo(Note? other)
-        {
-            if (other == null)
-                return 1;
-            return this.Number.CompareTo(other.Number);
-        }
     }
-
 }

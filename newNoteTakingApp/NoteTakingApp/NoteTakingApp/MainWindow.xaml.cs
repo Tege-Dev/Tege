@@ -19,27 +19,57 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Collections.Immutable;
+using System.Collections;
+using static Azure.Core.HttpHeader;
 
 namespace NoteTakingApp
 {
     public partial class MainWindow : Window
     {
-
         private NoteDbContext dbContext;
         private string Author;
-        public ObservableCollection<Note> Notes { get; set; }
-
+        public ObservableCollection<Note> ShowNotes { get; set; } = new ObservableCollection<Note>();
+        public List<UserNote> UserNotes { get; set; }
+        public List<Note> Notes { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            if(!UsernameDialog())
+            if(UsernameDialog() == false)
             {
                 Close();
             }
             Author = Properties.Settings.Default.SavedUsername;
-            dbContext = new NoteDbContext();
-            Notes = new ObservableCollection<Note>(LoadUserNotes(Author));
             DataContext = this;
+            userRadioButton.IsChecked = true;
+            UpdateView();
+        }
+
+        private void LoadData()
+        {
+            using (var dbContext = new NoteDbContext())
+            {
+                UserNotes = dbContext.GetAllUserNotes();
+                Notes = dbContext.GetAllNotes();
+            }
+        }
+
+        private void UpdateView(List<Note> notes)
+        {
+            ShowNotes.Clear();
+            ShowNotes.AddRange(notes);
+        }
+
+
+        private void UpdateView()
+        {
+            if (userRadioButton.IsChecked ?? false)
+            { 
+                UpdateView(LoadUserNotes());
+            }
+            else if(publicRadioButton.IsChecked ?? false)
+            {
+                UpdateView(GetNotesSavedByAuthor());
+            }
         }
 
         private bool UsernameDialog()
@@ -48,36 +78,31 @@ namespace NoteTakingApp
             return loginWindow.ShowDialog() ?? false;
         }
 
-        public void DisplayNotes(object sender, RoutedEventArgs e)
+        public void ShowPublicNotes(object sender, RoutedEventArgs e)
         {
-            var newDisplayNotes = new DisplayNotes(Notes, this);
+            var newDisplayNotes = new ShowPublicNoteList(this);
             newDisplayNotes.Show();
         }
+
         private void ChangeUser(object sender, RoutedEventArgs e)
         {
-            if (!UsernameDialog())
+            if (UsernameDialog() == false)
             {
                 return;
             }
+
             Properties.Settings.Default.Reload();
             Author = Properties.Settings.Default.SavedUsername;
-
-            dbContext = new NoteDbContext();
-            Notes.Clear();
-            var newNotes = LoadUserNotes(Author);
-            foreach (var note in newNotes)
-            {
-                Notes.Add(note);
-            }
+            UpdateView();
         }
         private void ClearNotes(object sender, RoutedEventArgs e)
         {
-            Notes.Clear();
+            ShowNotes.Clear();
             ClearDatabaseTable();
         }
         public void ClearDatabaseTable()
         {
-            dbContext.Database.ExecuteSqlRaw("DELETE FROM Notes");
+           // dbContext.Database.ExecuteSqlRaw("DELETE FROM Notes");
         }
 
         private void AddNote(object sender, RoutedEventArgs e)
@@ -88,44 +113,83 @@ namespace NoteTakingApp
 
         //Notes = new ObservableCollection<Note>(LoadPublicNotes());
 
-        public ObservableCollection<Note> LoadPublicNotes()
+        public List<Note> GetPublicNotes()
         {
-            return new ObservableCollection<Note>(dbContext.Notes.Where(note => note.Privacy.Equals(PrivacySetting.Public)));
+            var authorSavedNotes = GetNotesSavedByAuthor();
+
+            return new List<Note>(Notes
+                .Where(note => (note.Privacy == PrivacySetting.Public && !note.Author.Equals(Author, StringComparison.OrdinalIgnoreCase)))
+                .ToList());
         }
 
-        public ObservableCollection<Note> LoadUserNotes(string Author)
+        public List<int> AuthorNoteNumbers()
+        {   
+            return new List<int>(UserNotes
+                .Where(userNote => userNote.UserName.Equals(Author, StringComparison.OrdinalIgnoreCase))
+                .Select(userNote => userNote.PublicNoteNumber)
+                .ToList());
+        }
+
+        public List<Note> GetNotesSavedByAuthor()
         {
-            return new ObservableCollection<Note>(dbContext.Notes.Where(note => note.Author.Equals(Author)));
+            LoadData();
+            var authorSavedNoteNumbers = AuthorNoteNumbers();
+            return new List<Note>(Notes
+                .Where(note => authorSavedNoteNumbers.Contains(note.Number))
+                .ToList());
+        }
+
+        public List<Note> LoadUserNotes()
+        {
+            LoadData();
+            return new List<Note>(
+                Notes
+                    .Where(note => note.Author.Equals(Author, StringComparison.OrdinalIgnoreCase))
+                    .ToList());
         }
 
         public void SaveNote(Note newNote)
         {
-            Notes.Add(newNote);
+            dbContext = new NoteDbContext();
+           
             dbContext.Notes.Add(newNote);
             dbContext.SaveChanges();
+            UpdateView();
+        }
+
+        public void SavePublicNote(Note note)
+        {
+            dbContext = new NoteDbContext();
+            var saved = GetNotesSavedByAuthor();
+            if (saved.Any(n => n.Number == note.Number))
+            {
+                return;
+            }
+            var userNote = new UserNote(Author, note.Number);
+            dbContext.UserNotes.Add(userNote);
+            dbContext.SaveChanges();
+            UpdateView();
         }
 
         public void UpdateNote(Note updatedNote)
         {
+            dbContext = new NoteDbContext();
             var existingNote = dbContext.Notes.Find(updatedNote.Number);
 
             if (existingNote != null)
             {
-                Notes.Remove(existingNote);
-                Notes.Add(updatedNote);
-
                 existingNote.Title = updatedNote.Title;
                 existingNote.Content = updatedNote.Content;
                 existingNote.Privacy = updatedNote.Privacy;
 
                 dbContext.SaveChanges();
+                UpdateView();
             }
             else
             {
                 throw new InvalidOperationException($"Note with ID {updatedNote.Number} not found.");
             }
         }
-
 
         private void NotesCardClick(object sender, RoutedEventArgs e)
         {
@@ -136,6 +200,11 @@ namespace NoteTakingApp
                 noteWindow.Show();
                 Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void Option_Checked(object sender, RoutedEventArgs e)
+        {
+                UpdateView();
         }
 
         public void OpenMainWindow()
