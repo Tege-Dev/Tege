@@ -9,7 +9,7 @@ namespace NoteTakingApp
         Private = 1
     }
 
-    public class Note : IComparable<Note>
+    public class Note : IComparable<Note>, IEquatable<Note>
     {
         [Key]
         public int Number { get; set; }
@@ -22,7 +22,7 @@ namespace NoteTakingApp
 
         public PrivacySetting Privacy { get; set; }
 
-        public Note(){}
+        public Note() { }
 
         public Note(string author, string title, string content, PrivacySetting privacy = PrivacySetting.Private)
         {
@@ -31,23 +31,38 @@ namespace NoteTakingApp
             Content = content;
             Privacy = privacy;
         }
-        public object NumberToObject()
-        {
-            object boxedNumber = Number;
-            return boxedNumber;
-        }
 
-        public void NumberFromObject(object boxedNumber)
-        {
-            Number = (int)boxedNumber;
-        }
-
-        public int CompareTo(Note? other)
+        public int CompareTo(Note other)
         {
             if (other == null)
+            {
                 return 1;
-            return this.Number.CompareTo(other.Number);
+            }
+            return Number.CompareTo(other.Number);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Note);
+        }
+
+        public bool Equals(Note other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            return Number == other.Number &&
+                   Author == other.Author &&
+                   Title == other.Title &&
+                   Content == other.Content &&
+                   Privacy == other.Privacy;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Number, Author, Title, Content, Privacy);
         }
     }
-
 }

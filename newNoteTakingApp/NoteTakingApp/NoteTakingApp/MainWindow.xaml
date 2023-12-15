@@ -45,7 +45,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="10,0,10,0">
             <ItemsControl
                 Grid.Row="1"
-                ItemsSource="{Binding Notes}">
+                ItemsSource="{Binding ShowNotes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" Margin="0, 0, 10, 0">
@@ -73,21 +73,26 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            
-            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Height="auto">
-            <Button Content="Erase Notes" Click="ClearNotes" Margin="5" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
-                <Button Content="Temp Check Notes" Click="DisplayNotes" Margin="5" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
-                <Button Content="Change User" Click="ChangeUser" Margin="5" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Height="auto">
+                <RadioButton Name="userRadioButton" Content="Show my notes" Checked="Option_Checked" VerticalAlignment="Center" Margin="5"/>
+                <RadioButton Name="publicRadioButton" Content="Show saved" Checked="Option_Checked" VerticalAlignment="Center" Margin="5"/>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="46" Width="46"  Style="{StaticResource CircularButton}" Background="{StaticResource SecondaryBrush}" >
+                <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="46" Width="46"  Style="{StaticResource CircularButton}" Background="{StaticResource SecondaryBrush}" >
                 <Image Source="\Assets\white_add.png" Stretch="Uniform" Height="30" Width="33"/>
             </Button>
             <Label  Content="Add a New Note" FontWeight="Bold" Foreground="White"/>
-        </StackPanel>
-        
-        
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,0" Height="auto">
+                <Button Content="Add public note" Click="ShowPublicNotes" Margin="5" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
+                <Button Content="Erase Notes" Click="ClearNotes" Margin="5" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
+                <Button Content="Change User" Click="ChangeUser" Margin="5" Background="{StaticResource SecondaryBrush}" Foreground="White"/>
+            </StackPanel>
+
+
         </Grid>
     </Grid>
 </Window>

@@ -9,11 +9,10 @@ namespace NoteTakingApp
         private MainWindow mainWindow;
         public NoteDbContext dbContext;
 
-        public AddNote(MainWindow mainwindow, NoteDbContext context)
+        public AddNote(MainWindow mainwindow)
         {
             InitializeComponent();
             mainWindow = mainwindow;
-            dbContext = context;
 
             privacyComboBox.Items.Clear();
             privacyComboBox.ItemsSource = Enum.GetValues(typeof(PrivacySetting));
@@ -34,7 +33,7 @@ namespace NoteTakingApp
 
             var newNote = new Note(Properties.Settings.Default.SavedUsername, title, content, privacy);
 
-            mainWindow.SaveNote(newNote);
+            mainWindow.SaveNoteAsync(newNote);
 
             Close();
         }
