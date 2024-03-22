@@ -30,10 +30,10 @@ jobs:
       Solution_Path: NoteApp\NoteTakingApp.sln
       Test_Project_Path: NoteApp\Tests\Tests.csproj
       Wpf_Project_Path: NoteApp\NoteTakingApp\NoteTakingApp.csproj
-      Wap_Project_Directory: NoteApp.Package
+      Wap_Project_Directory: NoteApp\NoteTakingApp\NoteApp.Package
       Wap_Project_Name: NoteApp.Package.wapproj
       Actions_Allow_Unsecure_Commands: true # Allows AddPAth and SetEnv commands
-
+      
     steps:
     - name: Checkout
       uses: actions/checkout@v2
