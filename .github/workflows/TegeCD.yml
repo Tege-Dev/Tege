@@ -28,5 +28,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: Tege
-          path: NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/*.exe
+          path: NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/NoteTakingApp.exe
           
