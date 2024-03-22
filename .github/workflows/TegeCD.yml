@@ -24,11 +24,6 @@ jobs:
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release --self-contained -r win-x64 -p:PublishSingleFile=true 
-          
-      - uses: actions/upload-artifact@v2
-        with:
-          name: Tege
-          path: NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/NoteTakingApp.exe
 
       - uses: actions/create-release@v1
         id: create_release
@@ -41,5 +36,5 @@ jobs:
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/NoteTakingApp.exe
+          pattern: NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/*.exe
           release-url: ${{ steps.create_release.outputs.upload_url }}
