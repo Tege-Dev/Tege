@@ -23,8 +23,7 @@ jobs:
 
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
 
-      - run: |
-          dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+      - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
           
       - uses: actions/upload-artifact@v2
         with:
