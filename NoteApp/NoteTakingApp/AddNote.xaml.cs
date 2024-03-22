@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace NoteTakingApp
 {
@@ -17,6 +18,25 @@ namespace NoteTakingApp
             privacyComboBox.Items.Clear();
             privacyComboBox.ItemsSource = Enum.GetValues(typeof(PrivacySetting));
             privacyComboBox.SelectedItem = PrivacySetting.Private;
+
+            sharingComboBox.Items.Clear();
+            sharingComboBox.ItemsSource = Enum.GetValues(typeof (SharingSetting));
+            sharingComboBox.SelectedItem = SharingSetting.Viewing;
+            sharingComboBox.Visibility = Visibility.Collapsed; // Initially hidden
+        }
+
+        private void PrivacyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (privacyComboBox.SelectedItem.ToString() == "Public")
+            {
+                sharingLabel.Visibility = Visibility.Visible;
+                sharingComboBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                sharingLabel.Visibility = Visibility.Collapsed;
+                sharingComboBox.Visibility = Visibility.Collapsed;
+            }
         }
 
         public void AddNewNote(object sender, RoutedEventArgs e)
@@ -24,6 +44,7 @@ namespace NoteTakingApp
             var content = noteContentTextBox.Text.Trim();
             var title = titleTextBox.Text.Trim();
             var privacy = (PrivacySetting)privacyComboBox.SelectedItem;
+            var sharing = (SharingSetting)sharingComboBox.SelectedItem;
 
             if (string.IsNullOrEmpty(content) || string.IsNullOrEmpty(title))
             {
@@ -31,7 +52,7 @@ namespace NoteTakingApp
                 return;
             }
 
-            var newNote = new Note(Properties.Settings.Default.SavedUsername, title, content, privacy);
+            var newNote = new Note(Properties.Settings.Default.SavedUsername, title, content, privacy, sharing);
 
             mainWindow.SaveNoteAsync(newNote);
 

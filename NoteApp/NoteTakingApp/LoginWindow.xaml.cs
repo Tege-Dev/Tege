@@ -1,4 +1,6 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using NoteTakingApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,12 @@ namespace NoteTakingApp
         {
             InitializeComponent();
             LoadSavedUsername();
+
+        }
+
+        public String GetUsername()
+        {
+            return Username;
         }
 
         // LoginWindow.xaml.cs
@@ -78,8 +86,22 @@ namespace NoteTakingApp
         {
             Username = usernameTextBox.Text;
             RememberMe = rememberCheckBox.IsChecked ?? false;
-            SaveUsername(Username, RememberMe);
-            DialogResult = true;
+            using (var DbContext = new NoteDbContext())
+            {
+                var users = DbContext.Users.AsQueryable();
+                if (users.Where(x => x.Username == Username).Count() == 1)
+                {
+                    SaveUsername(Username, RememberMe);
+                    DialogResult = true;
+                }
+                else
+                {
+                    validationMessage.Text = "Invalid username. Try again.";
+                    validationMessage.Foreground = Brushes.Red;
+                    okButton.IsEnabled = false;
+                }
+            }
+
         }
 
         private void RememberCheckBox_Checked(object sender, RoutedEventArgs e)

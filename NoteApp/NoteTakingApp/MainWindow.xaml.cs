@@ -6,21 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Data.SqlClient;
-using System.Configuration;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Collections.Immutable;
 using System.Collections;
 using static Azure.Core.HttpHeader;
+using System.Diagnostics;
+using Microsoft.IdentityModel.Tokens;
 
 namespace NoteTakingApp
 {
@@ -84,8 +76,9 @@ namespace NoteTakingApp
 
         private bool UsernameDialog()
         {
-            var loginWindow = new LoginWindow();
-            return loginWindow.ShowDialog() ?? false;
+            var signUpWindow = new SignUpWindow();
+            Author = signUpWindow.GetUsername();
+            return signUpWindow.ShowDialog() ?? false;
         }
 
         public void ShowPublicNotes(object sender, RoutedEventArgs e)
@@ -206,12 +199,19 @@ namespace NoteTakingApp
             }
         }
 
-            private void NotesCardClick(object sender, RoutedEventArgs e)
-        {
+            private void NotesCardClick(object sender, RoutedEventArgs e){
             var button = (Button)sender;
+            NoteWindow noteWindow;
             if (button.DataContext is Note selectedNote)
             {
-                var noteWindow = new NoteWindow(this, selectedNote);
+                if(selectedNote.Author != Author)
+                {
+                    noteWindow = new NoteWindow(this, selectedNote, selectedNote.Sharing);
+                }
+                else
+                {
+                    noteWindow = new NoteWindow(this, selectedNote);
+                }
                 noteWindow.Show();
                 Visibility = Visibility.Collapsed;
             }

@@ -9,6 +9,13 @@ namespace NoteTakingApp
         Private = 1
     }
 
+    public enum SharingSetting
+    {
+        Viewing = 0,
+        Commenting = 1,
+        Editing = 2
+    }
+
     public class Note : IComparable<Note>, IEquatable<Note>
     {
         [Key]
@@ -21,15 +28,17 @@ namespace NoteTakingApp
         public string Content { get; set; }
 
         public PrivacySetting Privacy { get; set; }
+        public SharingSetting Sharing { get; set; }
 
         public Note() { }
 
-        public Note(string author, string title, string content, PrivacySetting privacy = PrivacySetting.Private)
+        public Note(string author, string title, string content, PrivacySetting privacy = PrivacySetting.Private, SharingSetting sharing = SharingSetting.Viewing)
         {
             Author = author;
             Title = title;
             Content = content;
             Privacy = privacy;
+            Sharing = sharing;
         }
 
         public int CompareTo(Note other)

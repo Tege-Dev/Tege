@@ -10,7 +10,8 @@
         <Grid x:Name="viewMode">
             <TextBlock Name="noteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" Text="Note Theme" />
             <TextBox Name="noteDetailsText" Margin="20,50,20,30" TextWrapping="Wrap" IsReadOnly="True"/>
-            <Button Name="editButton" Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20" Visibility="Visible" Width="40"/>
+            <Button Name="editButton" Content="Edit" Click="EditNote_Click" HorizontalAlignment="Right" Visibility="Collapsed" VerticalAlignment="Top" Margin="0,19,20,0" Width="40" />
+            <Button Name="commentButton" Content="Comment" Click="CommentNote_Click" HorizontalAlignment="Right" Visibility="Collapsed" VerticalAlignment="Top" Margin="0,19,72,0" Width="67"/>
             <Button Name="backButton" Content="Back" Click="BackToMainWidnow_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20" Width="40"/>
         </Grid>
 

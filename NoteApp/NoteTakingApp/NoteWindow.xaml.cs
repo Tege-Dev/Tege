@@ -29,6 +29,31 @@ namespace NoteTakingApp
             noteTitleText.Text = selectedNote.Title;
             noteDetailsText.Text = selectedNote.Content;
             noteAuthorText.Text = "Author: " + selectedNote.Author.CapitalizeFirstLetter();
+            editButton.Visibility = Visibility.Visible;
+            commentButton.Visibility = Visibility.Visible;
+        }
+
+        public NoteWindow(MainWindow mainWindow, Note selectedNote, SharingSetting sharing)
+        {
+            InitializeComponent();
+
+            this.mainWindow = mainWindow;
+            this.selectedNote = selectedNote;
+            noteTitleText.Text = selectedNote.Title;
+            noteDetailsText.Text = selectedNote.Content;
+            noteAuthorText.Text = "Author: " + selectedNote.Author.CapitalizeFirstLetter();
+            switch ( sharing )
+            {
+                case SharingSetting.Editing:
+                    editButton.Visibility = Visibility.Visible;
+                    commentButton.Visibility = Visibility.Visible;
+                    break;
+                case SharingSetting.Commenting:
+                    commentButton.Visibility = Visibility.Visible; 
+                    break;
+                case SharingSetting.Viewing:
+                    break;
+            }
         }
 
         private void EditNote_Click(object sender, RoutedEventArgs e)
@@ -62,6 +87,11 @@ namespace NoteTakingApp
         {
             mainWindow.OpenMainWindow();
             Close();
+        }
+
+        private void CommentNote_Click(object sender, RoutedEventArgs e)
+        {
+            viewMode.Visibility = Visibility.Visible;
         }
     }
 

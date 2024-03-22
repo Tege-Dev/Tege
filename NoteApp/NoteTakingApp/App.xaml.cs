@@ -17,7 +17,7 @@ namespace NoteTakingApp
         public App()
         {
             //var dbContext = new NoteDbContext();
-            //var mainWindow = new MainWindow(dbContext);
+            //var mainWindow = new MainWindow();
             //mainWindow.Show();
         }
 
