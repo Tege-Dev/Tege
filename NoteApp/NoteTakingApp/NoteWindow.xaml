@@ -16,7 +16,7 @@
         </Grid>
 
         <Grid x:Name="editMode" Visibility="Collapsed">
-            <TextBox Name="editNoteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" BorderThickness="0"/>
+            <TextBox Name="editNoteTitleText" Margin="10,10,0,0" HorizontalAlignment="Center" FontSize="22" FontWeight="Bold" BorderThickness=" 0"/>
             <TextBox Name="editNoteDetailsText" Margin="20,50,20,30" TextWrapping="Wrap"/>
             <Button Content="Cancel" Click="CancelEdit_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20"/>
             <Button Name="saveButton" Content="Save Changes" Click="SaveChanges_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20"/>
