@@ -23,4 +23,19 @@ jobs:
 
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
 
-      - run: dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
+      - run: dotnet publish ${{env.PROJECT_PATH}} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+
+      - uses: actions/create-release@v4
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: 1.1.beta
+          release_name: Tege.1.1.beta
+
+      - uses: csexton/release-assest-actions@v4
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          pattern: NoteApp/NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/*.exe
+          release-url: ${{steps.create_release.outputs.upload_url}}
+        
