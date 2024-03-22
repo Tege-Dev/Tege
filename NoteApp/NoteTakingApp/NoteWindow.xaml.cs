@@ -29,6 +29,7 @@ namespace NoteTakingApp
             noteTitleText.Text = selectedNote.Title;
             noteDetailsText.Text = selectedNote.Content;
             noteAuthorText.Text = "Author: " + selectedNote.Author.CapitalizeFirstLetter();
+            viewMode.Visibility = Visibility.Visible;
             editButton.Visibility = Visibility.Visible;
             commentButton.Visibility = Visibility.Visible;
         }
