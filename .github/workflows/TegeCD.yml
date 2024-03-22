@@ -33,7 +33,7 @@ jobs:
           tag_name: 1.1.beta
           release_name: Tege.1.1.beta
 
-      - uses: csexton/release-asset-actions@v2
+      - uses: csexton/release-asset-actions@v1
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           pattern: NoteApp/NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/*.exe
