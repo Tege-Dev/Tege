@@ -30,11 +30,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: 1.1.0
-          release_name: Tege.0.0.1
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
 
       - uses: csexton/release-asset-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/NoteTakingApp.exe
+          pattern: NoteTakingApp/bin/Release/net8.0-windows/win-x64/publish/*.exe
           release-url: ${{ steps.create_release.outputs.upload_url }}
