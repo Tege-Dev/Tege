@@ -19,18 +19,27 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - run: dotnet restore ${{env.PROJECT_PATH}}
-
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
-
+     
+      - name: Get tag name from ref
+        shell: bash
+        run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
+        id: get_tag
+      - name: Create tag in public repository
+        run: |
+          cd ${{github.workspace}}/another_public_repo
+          git tag ${{ steps.get_tag.outputs.tag }}
+          git push --tags --porcelain
+      
       - uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          release_name: TeGe ${{ steps.step_version.outputs.version }}
+          tag_name: ${{ steps.get_tag.outputs.tag }}
+          release_name: TeGe ${{ steps.get_tag.outputs.tag }}
 
       - uses: csexton/release-asset-action@v2
         with:
