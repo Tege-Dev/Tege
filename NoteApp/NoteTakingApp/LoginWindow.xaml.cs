@@ -86,7 +86,6 @@ namespace NoteTakingApp
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             Username = usernameTextBox.Text;
-
             RememberMe = rememberCheckBox.IsChecked ?? false;
             var users = noteDbContext.Users.Select(u => u.Username).ToList();
 
