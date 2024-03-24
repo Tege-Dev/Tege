@@ -25,9 +25,9 @@ jobs:
       - name: run number with offset
         env:
           NUM: ${{ vars.TEGE }}
-        run: |
-          set-env name=NEWNUM::$(($NUM+1))
-          echo "{TEGE}={NEWNUM}" >> "$vars"
+          run: |
+            set-env name=NEWNUM::$(($NUM+1))
+            echo "{TEGE}={NEWNUM}" >> "$vars"
           
       - uses: actions/create-release@v1
         id: create_release
