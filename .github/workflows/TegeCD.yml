@@ -18,6 +18,17 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
+          
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Minor version for each merge
+        id: taggerDryRun
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DRY_RUN: true
 
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
 
@@ -39,8 +50,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.NEW_PATCH_VERSION }}
-          release_name: TeGe ${{ env.NEW_PATCH_VERSION }}
+          tag_name: ${{ steps.taggerDryRun.outputs.new_tag }}
+          release_name: TeGe ${{ steps.taggerDryRun.outputs.new_tag }}
 
       - uses: csexton/release-asset-action@v2
         with:
