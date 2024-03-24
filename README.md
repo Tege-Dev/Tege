@@ -1,1 +1,1 @@
-v1.0.1
+The perfect study buddy with AI integration
