@@ -30,8 +30,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{env.GITHUB_REF_NAME}}
-          release_name: TeGe ${{env.GITHUB_REF_NAME}}
+          tag_name: ${{ steps.tagName.outputs.tag }}
+          release_name: TeGe ${{ steps.tagName.outputs.tag }}
 
       - uses: csexton/release-asset-action@v2
         with:
