@@ -19,7 +19,7 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - run: dotnet build ${{env.PROJECT_PATH}} -c Release --no-restore
+      - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
      
