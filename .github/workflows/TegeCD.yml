@@ -1,5 +1,4 @@
 name: Tege Desktop
-
 on:
   push:
     branches: [ "main" ]
