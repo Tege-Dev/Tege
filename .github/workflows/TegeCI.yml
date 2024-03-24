@@ -19,7 +19,7 @@ jobs:
           dotnet-version: '8.x'
       
       - name: Restore dependencies
-        working-directory: ./NoteTakingApp
+        working-directory: NoteApp
         run: dotnet restore
       
       - name: Build
