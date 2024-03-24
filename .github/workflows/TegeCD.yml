@@ -23,24 +23,12 @@ jobs:
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
 
-      - name: Get Previous tag
-        id: previoustag
-        uses: 'WyriHaximus/github-action-get-previous-tag@v1'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Get next version
-        id: next
-        uses: 'WyriHaximus/github-action-next-release-version@1.0.0'
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
-
       - uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.next.outputs.version }}
+          tag_name: v1
           release_name: TeGe ${{ steps.next.outputs.version }}
 
       - uses: csexton/release-asset-action@v2
