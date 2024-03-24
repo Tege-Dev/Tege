@@ -1,0 +1,66 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.x'
+      
+      - name: Cache NuGet packages
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/NoteTakingApp/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      
+      - name: Restore dependencies
+        working-directory: ./src
+        run: dotnet restore
+        if: steps.cache.outputs.cache-hit != 'true'
+      
+      - name: Build
+        id: build
+        working-directory: omitted
+        run: dotnet build --configuration Release
+      
+      - name: Test
+        id: test
+        working-directory: omitted
+        run: dotnet test --configuration Release --no-restore --verbosity normal
+      
+      - name: Revert changes on test failure
+        if: ${{ failure() }}
+        env:
+          COMMITS_JSON: ${{ toJSON(github.event.commits) }}
+        run: |
+          git checkout develop
+          git pull origin develop
+      
+          $commit_objects = $env:COMMITS_JSON | ConvertFrom-Json
+          $commit_shas = $commit_objects | ForEach-Object { $_.id }
+          $commit_ids = $commit_shas -join ' '
+      
+          Write-Host "Commit ids:"
+          Write-Host $commit_ids
+      
+          git revert $commit_ids
+          
+          git push origin main
+          exit 1
