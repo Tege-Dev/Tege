@@ -15,6 +15,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
+      - name: Setup Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
       
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
@@ -31,7 +36,7 @@ jobs:
             ${{ runner.os }}-nuget-
       
       - name: Restore dependencies
-        working-directory: ./src
+        working-directory: ./NoteTakingApp
         run: dotnet restore
         if: steps.cache.outputs.cache-hit != 'true'
       
@@ -50,8 +55,8 @@ jobs:
         env:
           COMMITS_JSON: ${{ toJSON(github.event.commits) }}
         run: |
-          git checkout develop
-          git pull origin develop
+          git checkout main
+          git pull origin main
       
           $commit_objects = $env:COMMITS_JSON | ConvertFrom-Json
           $commit_shas = $commit_objects | ForEach-Object { $_.id }
