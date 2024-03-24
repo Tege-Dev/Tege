@@ -23,18 +23,12 @@ jobs:
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
 
-      - name: Generate build number
-        id: buildnumber
-        uses: einaregilsson/build-number@v3 
-        with:
-          token: ${{secrets.github_token}}  
-      
       - uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "v${{ steps.buildnumber.outputs.build_number }}"
+          tag_name: "v${{ github.run_attempt }}+${{secrets.github_token}}"
           release_name: TeGe 
           
       - uses: csexton/release-asset-action@v2
