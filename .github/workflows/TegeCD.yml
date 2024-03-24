@@ -22,24 +22,14 @@ jobs:
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
-     
-      - name: Get tag name from ref
-        shell: bash
-        run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
-        id: get_tag
-      - name: Create tag in public repository
-        run: |
-          cd ${{github.workspace}}/main
-          git tag ${{ steps.get_tag.outputs.tag }}
-          git push --tags --porcelain
       
       - uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.get_tag.outputs.tag }}
-          release_name: TeGe ${{ steps.get_tag.outputs.tag }}
+          tag_name: ${{ github.event.release.tag_name }}
+          release_name: TeGe ${{ github.event.release.tag_name }}
 
       - uses: csexton/release-asset-action@v2
         with:
