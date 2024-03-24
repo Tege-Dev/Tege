@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using NoteTakingApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,13 +22,15 @@ namespace NoteTakingApp
     /// Interaction logic for Page1.xaml
     /// </summary>
     public partial class SignUpWindow : Window {
+        private MainWindow _mainWindow;
         private string Username { get; set; } = string.Empty;
         private string Name { get; set; } = string.Empty;
         private string Surname { get; set; } = string.Empty;
 
-        public SignUpWindow()
+        public SignUpWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            _mainWindow = mainWindow;
         }
 
         private void SignUpButton_Click(object sender, RoutedEventArgs e)
@@ -36,17 +40,12 @@ namespace NoteTakingApp
             Name = nameTextBox.Text;
             Surname = SurnameTextBox.Text;
             DialogResult = true;
-
-            // After signing up, navigate to the login window
-            LoginWindow loginWindow = new LoginWindow();
-            bool? dialogResult = loginWindow.ShowDialog();
-
-            if (dialogResult == true)
+            if (!Username.IsNullOrEmpty())
             {
-                DialogResult = true;
-                Username = loginWindow.GetUsername();
-                this.Close();
+                var user = new User(Username, Name, Surname);
+                 _mainWindow.SaveUser(user);
             }
+            // After signing up, navigate to the login window
         }
 
         public String GetUsername()

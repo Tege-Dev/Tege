@@ -23,12 +23,13 @@ namespace NoteTakingApp
     {
         private string Username { get; set; } = string.Empty;
         private bool RememberMe { get; set; }
+        private NoteDbContext noteDbContext { get; set; }
 
         public LoginWindow()
         {
             InitializeComponent();
             LoadSavedUsername();
-
+            noteDbContext = new NoteDbContext();
         }
 
         public String GetUsername()
@@ -86,20 +87,19 @@ namespace NoteTakingApp
         {
             Username = usernameTextBox.Text;
             RememberMe = rememberCheckBox.IsChecked ?? false;
-            using (var DbContext = new NoteDbContext())
+            var users = noteDbContext.Users.Select(u => u.Username).ToList();
+
+            if (users.Contains(Username))
             {
-                var users = DbContext.Users.AsQueryable();
-                if (users.Where(x => x.Username == Username).Count() == 1)
-                {
-                    SaveUsername(Username, RememberMe);
-                    DialogResult = true;
-                }
-                else
-                {
-                    validationMessage.Text = "Invalid username. Try again.";
-                    validationMessage.Foreground = Brushes.Red;
-                    okButton.IsEnabled = false;
-                }
+                SaveUsername(Username, RememberMe);
+                DialogResult = true;
+            }
+            else
+            {
+                validationMessage.Text = "Invalid username. Try again.";
+                validationMessage.Foreground = Brushes.Red;
+                okButton.IsEnabled = false;
+                Username = String.Empty;
             }
 
         }

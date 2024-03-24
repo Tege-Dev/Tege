@@ -13,6 +13,8 @@ using System.Collections;
 using static Azure.Core.HttpHeader;
 using System.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
+using NoteTakingApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace NoteTakingApp
 {
@@ -76,9 +78,15 @@ namespace NoteTakingApp
 
         private bool UsernameDialog()
         {
-            var signUpWindow = new SignUpWindow();
+            var signUpWindow = new SignUpWindow(this);
             Author = signUpWindow.GetUsername();
             return signUpWindow.ShowDialog() ?? false;
+        }
+
+        public async void SaveUser(User user)
+        {
+            dbContext.Users.Add(user);
+            await dbContext.SaveChangesAsync();
         }
 
         public void ShowPublicNotes(object sender, RoutedEventArgs e)
