@@ -21,13 +21,19 @@ jobs:
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
-      
+      - name: run number with offset
+        env:
+          NUM: ${{ vars.TEGE }}
+          run: |
+            set-env name=NEWNUM::$(($NUM+1))
+            echo "{TEGE}={NEWNUM}" >> "$vars"
+          
       - uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "v${{ github.run_attempt }}"
+          tag_name: ${{NEWNUM}}
           release_name: TeGe 
           
       - uses: csexton/release-asset-action@v2
