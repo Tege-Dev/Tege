@@ -4,7 +4,7 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteTakingApp", "NoteTakingApp\NoteTakingApp.csproj", "{841587F7-6E6A-475B-BFB8-1F8549E6EBA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{6D917BE4-E33C-4B68-A6E7-153FB3EA0721}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteTakingApp.IntegrationTest", "NoteTakingApp.IntegrationTest\NoteTakingApp.IntegrationTest.csproj", "{C1BE024D-4DEC-441B-9AB8-2073E9904830}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +16,10 @@ Global
 		{841587F7-6E6A-475B-BFB8-1F8549E6EBA9}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{841587F7-6E6A-475B-BFB8-1F8549E6EBA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{841587F7-6E6A-475B-BFB8-1F8549E6EBA9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D917BE4-E33C-4B68-A6E7-153FB3EA0721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D917BE4-E33C-4B68-A6E7-153FB3EA0721}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D917BE4-E33C-4B68-A6E7-153FB3EA0721}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D917BE4-E33C-4B68-A6E7-153FB3EA0721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1BE024D-4DEC-441B-9AB8-2073E9904830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1BE024D-4DEC-441B-9AB8-2073E9904830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1BE024D-4DEC-441B-9AB8-2073E9904830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1BE024D-4DEC-441B-9AB8-2073E9904830}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
