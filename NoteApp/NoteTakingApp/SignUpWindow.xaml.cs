@@ -1,5 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using NoteTakingApp.Models;
+using NoteTakingApp;
 using System;
 using System.Collections.Generic;
 using System.Linq;

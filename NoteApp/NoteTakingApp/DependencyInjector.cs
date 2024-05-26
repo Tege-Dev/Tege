@@ -1,33 +1,26 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NoteTakingApp.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoteTakingApp
 {
     public class DependencyInjector
     {
-        private NoteDbContext dbContext;
-        private UserRepository userRepository;
+        private readonly NoteDbContext _dbContext;
+        private readonly UserRepository _userRepository;
 
-        public DependencyInjector()
+        public DependencyInjector(NoteDbContext dbContext, UserRepository userRepository)
         {
-            dbContext = new NoteDbContext();
-            userRepository = new UserRepository(dbContext);
+            _dbContext = dbContext;
+            _userRepository = userRepository;
         }
 
         public NoteDbContext GetNoteDbContext()
         {
-            return dbContext;
+            return _dbContext;
         }
+
         public UserRepository GetUserRepository()
         {
-            return userRepository;
+            return _userRepository;
         }
-
     }
-
 }

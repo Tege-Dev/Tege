@@ -1,4 +1,4 @@
-﻿namespace NoteTakingApp.Repositories
+﻿namespace NoteTakingApp
 {
     public class UserRepository
     {
