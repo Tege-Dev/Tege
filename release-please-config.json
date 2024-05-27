@@ -1,0 +1,7 @@
+{
+  "packages": {
+    "TeGe": {
+       "release-type": "node"
+    }
+  }
+}

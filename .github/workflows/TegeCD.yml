@@ -1,9 +1,6 @@
 name: Tege Desktop
-
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
     
 env: 
@@ -14,31 +11,22 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
-
+      - run: dotnet test
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
-      - name: run number with offset
-        env:
-          NUM: ${{ vars.TEGE }}
-          run: |
-            set-env name=NEWNUM::$(($NUM+1))
-            echo "{TEGE}={NEWNUM}" >> "$vars"
-          
-      - uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: ls NoteApp/Publish
+      - name: Release with release-please
+        uses: google-github-actions/release-please-action@v4
+        id: release
         with:
-          tag_name: ${{NEWNUM}}
-          release_name: TeGe 
-          
-      - uses: csexton/release-asset-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: NoteApp/Publish/*.exe
-          release-url: ${{ steps.create_release.outputs.upload_url }}
+          release-type: simple
+          token: ${{ secrets.PAT }} 
+      - name: Upload Release Artifact
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} D:/a/Tege/Tege/NoteApp/Publish/NoteTakingApp.exe
+

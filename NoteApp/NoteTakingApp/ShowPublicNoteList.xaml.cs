@@ -1,11 +1,10 @@
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using NoteTakingApp.Models;
+using NoteTakingApp.Services;
 
 namespace NoteTakingApp
 {
@@ -15,6 +14,8 @@ namespace NoteTakingApp
         private string sortedColumn;
         private bool ascendingOrder;
         private MainWindow MainWindow;
+        private Search<Note> searchNotes = new Search<Note>();
+
 
         public ShowPublicNoteList(MainWindow mainWindow)
         {
@@ -54,17 +55,15 @@ namespace NoteTakingApp
             }
         }
 
-        public void SearchButton_Click(object sender, RoutedEventArgs e)
+        public async void SearchButton_ClickAsync(object sender, RoutedEventArgs e)
         {
-            var keyword = searchTextBox.Text;
-            if (!string.IsNullOrWhiteSpace(keyword) && !Notes.IsNullOrEmpty())
+            if (!string.IsNullOrWhiteSpace(searchTextBox.Text) && !Notes.IsNullOrEmpty())
             {
-                var matchingNotes = Notes.Where(note =>
-                note.Author.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                note.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
-                note.Content.Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-
+                SearchData<Note> sData = new SearchData<Note>();
+                sData.searchText = searchTextBox.Text+"~";
+                sData = await searchNotes.RunQueryAsync(sData);
+                var matchingResults = sData.resultList.GetResults().ToList();
+                var matchingNotes = searchNotes.Results(matchingResults);
                 DisplayNotesInListView(matchingNotes);
             }
             else
