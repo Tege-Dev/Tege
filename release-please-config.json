@@ -1,8 +1,5 @@
 {
   "release-type": "node",
-  // This section is completely optional. If you don't specify a package name
-  // the releases will be created without a name I.E v2.3.4
-  // Personally I like always having a name to for the service.
   "tag-separator": "@",
   "include-component-in-tag": true,
   "packages": {
