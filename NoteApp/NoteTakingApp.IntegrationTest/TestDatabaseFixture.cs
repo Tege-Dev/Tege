@@ -13,7 +13,7 @@ namespace NoteTakingApp.IntegrationTests
         public TestDatabaseFixture()
         {
             // Provide the connection string for your production database
-            string connectionString = "Server=tcp:tegeserver.database.windows.net,1433;Initial Catalog=tege_test;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;";
+            string connectionString = Environment.GetEnvironmentVariable("AZURE_SQL_CONNECTION_STRING");
 
             var options = new DbContextOptionsBuilder<NoteDbContext>()
                 .UseSqlServer(connectionString)
