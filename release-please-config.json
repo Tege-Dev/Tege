@@ -5,8 +5,9 @@
   // Personally I like always having a name to for the service.
   "tag-separator": "@",
   "include-component-in-tag": true,
-    "NoteApp/NoteTakingApp": {
-      "package-name": "TeGe"
+  "packages": {
+     "NoteApp/NoteTakingApp": {
+      "package-name": "cool-svc"
     }
   }
 }
