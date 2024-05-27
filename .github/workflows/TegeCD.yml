@@ -2,8 +2,6 @@ name: Tege Desktop
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
     
 env: 
   PROJECT_PATH: NoteApp/NoteTakingApp/NoteTakingApp.csproj
@@ -17,7 +15,7 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
-      - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
+      - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish --verbosity detailed
       - name: Release with release-please
         uses: google-github-actions/release-please-action@v4
         id: release
