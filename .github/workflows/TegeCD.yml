@@ -27,5 +27,5 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: gh release upload ${{ steps.release.outputs.tag_name }} NoteApp/Publish/NoteTakingApp.exe
+        run: gh release upload ${{ steps.release.outputs.tag_name }} D:/a/Tege/Tege/NoteApp/Publish/NoteTakingApp.exe
 
