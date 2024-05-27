@@ -22,16 +22,10 @@ jobs:
 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
 
-      - uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Release with release-please
+        uses: google-github-actions/release-please-action@v2
         with:
-          tag_name: ${{ github.run_id }}
-          release_name: TeGe 
-          
-      - uses: csexton/release-asset-action@v2
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: NoteApp/Publish/*.exe
-          release-url: ${{ steps.create_release.outputs.upload_url }}
+          token: ${{ secrets.GITHUB_TOKEN }}
