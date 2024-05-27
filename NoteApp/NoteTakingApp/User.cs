@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace NoteTakingApp.Models
+namespace NoteTakingApp
 {
     public class User
     {
         public User() { }
         public User(string username, string name, string surname)
         {
-            this.Name = name;
-            this.Username = username;
-            this.Surname = surname;
+            Name = name;
+            Username = username;
+            Surname = surname;
         }
         public int Id { get; set; }
         public string Username { get; set; }

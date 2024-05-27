@@ -13,7 +13,6 @@ using System.Collections;
 using static Azure.Core.HttpHeader;
 using System.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
-using NoteTakingApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace NoteTakingApp
