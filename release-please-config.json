@@ -4,7 +4,7 @@
   "include-component-in-tag": true,
   "packages": {
      "NoteApp/NoteTakingApp": {
-      "package-name": "cool-svc"
+      "package-name": "TeGe"
     }
   }
 }
