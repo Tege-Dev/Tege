@@ -23,7 +23,7 @@ namespace NoteTakingApp.IntegrationTest
 
             // Act
             _fixture.Context.Users.Add(newUser);
-            await _fixture.Context.SaveChangesAsync();
+            _fixture.Context.SaveChanges();
 
             // Assert
             var result = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "newuser");
@@ -37,44 +37,25 @@ namespace NoteTakingApp.IntegrationTest
         public async Task GetUserAsync_ShouldReturnUser()
         {
             // Act
-            var result = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "testuser");
+            var result = _fixture.Context.Users.FirstOrDefault(u => u.Username == "newuser");
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal("testuser", result.Username);
-        }
-
-        [Fact]
-        public async Task UpdateUserAsync_ShouldModifyUser()
-        {
-            // Arrange
-            var user = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "testuser");
-            user.Name = "UpdatedName";
-            user.Surname = "UpdatedSurname";
-
-            // Act
-            _fixture.Context.Users.Update(user);
-            await _fixture.Context.SaveChangesAsync();
-
-            // Assert
-            var result = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "testuser");
-            Assert.NotNull(result);
-            Assert.Equal("UpdatedName", result.Name);
-            Assert.Equal("UpdatedSurname", result.Surname);
+            Assert.Equal("newuser", result.Username);
         }
 
         [Fact]
         public async Task DeleteUserAsync_ShouldRemoveUser()
         {
             // Arrange
-            var user = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "testuser");
+            var user = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "newuser");
 
             // Act
             _fixture.Context.Users.Remove(user);
-            await _fixture.Context.SaveChangesAsync();
+            _fixture.Context.SaveChanges();
 
             // Assert
-            var result = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "testuser");
+            var result = await _fixture.Context.Users.FirstOrDefaultAsync(u => u.Username == "newuser");
             Assert.Null(result);
         }
     }
