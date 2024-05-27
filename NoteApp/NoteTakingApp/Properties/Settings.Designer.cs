@@ -12,7 +12,7 @@ namespace NoteTakingApp.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -44,6 +44,42 @@ namespace NoteTakingApp.Properties {
             }
             set {
                 this["RememberMeOption"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://tege.search.windows.net")]
+        public string SearchServiceUri {
+            get {
+                return ((string)(this["SearchServiceUri"]));
+            }
+            set {
+                this["SearchServiceUri"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0A8TscNOSfVNap4DgXvxY3DA7XWM2nQ6UR77mxGLj0AzSeCJ2VuB")]
+        public string SearchServiceQueryApiKey {
+            get {
+                return ((string)(this["SearchServiceQueryApiKey"]));
+            }
+            set {
+                this["SearchServiceQueryApiKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("azuresql-index")]
+        public string NoteIndex {
+            get {
+                return ((string)(this["NoteIndex"]));
+            }
+            set {
+                this["NoteIndex"] = value;
             }
         }
     }

@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+using NoteTakingApp.Services;
 
 namespace NoteTakingApp
 {
@@ -18,7 +20,12 @@ namespace NoteTakingApp
 
     public class Note : IComparable<Note>, IEquatable<Note>
     {
+        private string v1;
+        private string v2;
+        private PrivacySetting @private;
+
         [Key]
+        [JsonConverter(typeof(StringToIntConverter))]
         public int Number { get; set; }
         [Required]
         public string Author { get; set; }
@@ -39,6 +46,13 @@ namespace NoteTakingApp
             Content = content;
             Privacy = privacy;
             Sharing = sharing;
+        }
+
+        public Note(string v1, string v2, PrivacySetting @private)
+        {
+            this.v1 = v1;
+            this.v2 = v2;
+            this.@private = @private;
         }
 
         public int CompareTo(Note other)
