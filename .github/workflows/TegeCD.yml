@@ -15,15 +15,5 @@ jobs:
         with:
           dotnet-version: 8.0.x
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
-      - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish --verbosity detailed
-      - name: Release with release-please
-        uses: google-github-actions/release-please-action@v4
-        id: release
-        with:
-          release-type: simple
-          token: ${{ secrets.PAT }} 
-      - name: Upload Release Artifact
-        if: ${{ steps.release.outputs.release_created }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: gh release upload ${{ steps.release.outputs.tag_name }} NoteApp/Publish/*.exe
+      - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
+      - run: ls NoteApp/Publish
