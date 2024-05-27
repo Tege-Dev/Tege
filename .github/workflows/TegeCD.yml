@@ -28,6 +28,6 @@ jobs:
       - name: Upload Release Artifact
         if: ${{ steps.release.outputs.release_created }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: gh release upload ${{ steps.release.outputs.tag_name }} 
         
