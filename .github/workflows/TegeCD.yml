@@ -25,6 +25,7 @@ jobs:
         id: release
         with:
           release-type: simple
+          token: ${{ secrets.PAT }} 
       - name: Upload Release Artifact
         if: ${{ steps.release.outputs.release_created }}
         env:
