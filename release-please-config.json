@@ -1,7 +1,7 @@
 {
   "packages": {
-    "aws": {
-      "NoteApp/NoteTakingApp": "node"
+    "TeGe": {
+       "release-type": "node"
     }
   }
 }
