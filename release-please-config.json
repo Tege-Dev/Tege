@@ -1,10 +1,7 @@
 {
-  "release-type": "node",
-  "tag-separator": "@",
-  "include-component-in-tag": true,
   "packages": {
-     "NoteApp/NoteTakingApp": {
-      "package-name": "TeGe"
+    "aws": {
+      "NoteApp/NoteTakingApp": "node"
     }
   }
 }
