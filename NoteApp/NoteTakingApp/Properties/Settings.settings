@@ -8,5 +8,14 @@
     <Setting Name="RememberMeOption" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="SearchServiceUri" Type="System.String" Scope="User">
+      <Value Profile="(Default)">https://tege.search.windows.net</Value>
+    </Setting>
+    <Setting Name="SearchServiceQueryApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0A8TscNOSfVNap4DgXvxY3DA7XWM2nQ6UR77mxGLj0AzSeCJ2VuB</Value>
+    </Setting>
+    <Setting Name="NoteIndex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">azuresql-index</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

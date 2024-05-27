@@ -116,7 +116,7 @@ namespace NoteTakingApp
            // dbContext.Database.ExecuteSqlRaw("DELETE FROM Notes");
         }
 
-        private void AddNote(object sender, RoutedEventArgs e)
+        public void AddNote(object sender, RoutedEventArgs e)
         {
             var newAddNote = new AddNote(this);
             newAddNote.Show();

@@ -87,6 +87,7 @@ namespace NoteTakingApp
         {
             Username = usernameTextBox.Text;
             RememberMe = rememberCheckBox.IsChecked ?? false;
+
             var users = noteDbContext.Users.Select(u => u.Username).ToList();
             if (users.Contains(Username))
             {

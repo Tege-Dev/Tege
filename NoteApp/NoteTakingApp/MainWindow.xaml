@@ -82,7 +82,7 @@
 
             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button x:Name="addNotes" Cursor="Hand" Click="AddNote" Height="46" Width="46"  Style="{StaticResource CircularButton}" Background="{StaticResource SecondaryBrush}" >
-                <Image Source="\Assets\white_add.png" Stretch="Uniform" Height="30" Width="33"/>
+                    <Image Source="pack://application:,,,/Assets/white_add.png" Stretch="Uniform" Height="30" Width="33"/>
             </Button>
             <Label  Content="Add a New Note" FontWeight="Bold" Foreground="White"/>
             </StackPanel>

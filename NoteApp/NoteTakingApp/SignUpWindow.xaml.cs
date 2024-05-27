@@ -32,20 +32,41 @@ namespace NoteTakingApp
             InitializeComponent();
             _mainWindow = mainWindow;
         }
-
-        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        public string UsernameText
         {
-            // Add your sign up logic here
-            Username = usernameTextBox.Text;
-            Name = nameTextBox.Text;
-            Surname = SurnameTextBox.Text;
-            DialogResult = true;
+            get { return usernameTextBox.Text; }
+            set { usernameTextBox.Text = value; }
+        }
+
+        public string NameText
+        {
+            get { return nameTextBox.Text; }
+            set { nameTextBox.Text = value; }
+        }
+
+        public string SurnameText
+        {
+            get { return SurnameTextBox.Text; }
+            set { SurnameTextBox.Text = value; }
+        }
+
+        public void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = SignUp(usernameTextBox.Text, nameTextBox.Text, SurnameTextBox.Text);
+        }
+
+        public bool SignUp(string username, string name, string surname)
+        {
+            Username = username;
+            Name = name;
+            Surname = surname;
             if (!Username.IsNullOrEmpty())
             {
                 var user = new User(Username, Name, Surname);
-                 _mainWindow.SaveUser(user);
+                _mainWindow.SaveUser(user);
+                return true;
             }
-            // After signing up, navigate to the login window
+            return false;
         }
 
         public String GetUsername()
