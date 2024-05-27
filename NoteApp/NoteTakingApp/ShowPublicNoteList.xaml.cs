@@ -1,19 +1,10 @@
-using Azure.Search.Documents.Indexes;
-using Azure.Search.Documents;
-using Azure;
-using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using NoteTakingApp.Models;
 using NoteTakingApp.Services;
-using System.Threading.Tasks;
 
 namespace NoteTakingApp
 {
