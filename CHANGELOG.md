@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/Tege-Dev/Tege/compare/v1.0.1...v1.0.2) (2024-05-27)
+
+
+### Bug Fixes
+
+* fix adding exe ([5d36345](https://github.com/Tege-Dev/Tege/commit/5d36345bdcb4b45396b60f55c6e2b9c160b5531f))
+
 ## [1.0.1](https://github.com/Tege-Dev/Tege/compare/v1.0.0...v1.0.1) (2024-05-27)
 
 
