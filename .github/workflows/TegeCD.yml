@@ -21,8 +21,6 @@ jobs:
       - run: dotnet clean NoteApp/NoteTakingApp.IntegrationTest
       - run: dotnet build NoteApp/NoteTakingApp.IntegrationTest
       - run: dotnet test NoteApp/NoteTakingApp.IntegrationTest
-        env:
-          AZURE_SQL_CONNECTION_STRING: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
       - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
       - run: ls NoteApp/Publish
