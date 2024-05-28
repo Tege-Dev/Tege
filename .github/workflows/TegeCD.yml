@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-      - run: dotnet clean 
+      - run: dotnet clean NoteApp/NoteTakingApp.IntegrationTest
       - run: dotnet build NoteApp/NoteTakingApp.IntegrationTest
       - run: dotnet test NoteApp/NoteTakingApp.IntegrationTest
         env:
