@@ -10,10 +10,9 @@ jobs:
   deploy: 
     runs-on: windows-latest
     steps:
-      - uses: azure/login@v2
+      - uses: azure/actions/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: true
   
       - name: Azure CLI script
         uses: azure/cli@v2
