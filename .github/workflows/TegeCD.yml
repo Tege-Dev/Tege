@@ -18,10 +18,12 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-      - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
+      - run: dotnet clean 
+      - run: dotnet build NoteApp/NoteTakingApp.IntegrationTest
       - run: dotnet test NoteApp/NoteTakingApp.IntegrationTest
         env:
           AZURE_SQL_CONNECTION_STRING: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+      - run: dotnet build ${{env.PROJECT_PATH}} -c Release 
       - run: dotnet publish NoteApp/NoteTakingApp/NoteTakingApp.csproj -c Release -r win-x64 -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --output NoteApp/Publish 
       - run: ls NoteApp/Publish
       - name: Release with release-please
